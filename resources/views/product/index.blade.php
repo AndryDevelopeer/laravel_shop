@@ -16,7 +16,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a class="btn btn-primary" href="{{route('user.create')}}">Добавить</a>
+                            <a class="btn btn-primary" href="{{route('product.create')}}">Добавить</a>
                         </div>
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap">
@@ -24,9 +24,12 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Наименование</th>
-                                    <th>Описание</th>
                                     <th>Цвет</th>
+                                    <th>Категория</th>
+                                    <th>Цена</th>
+                                    <th>Количество</th>
                                     <th>Активность</th>
+                                    <th>Удален</th>
                                     <th>Подробнее</th>
                                     <th>Редактировать</th>
                                     <th>Удалить</th>
@@ -37,9 +40,18 @@
                                     <tr>
                                         <td>{{$product->id}}</td>
                                         <td>{{$product->name}}</td>
-                                        <td>{{$product->discription}}</td>
-                                        <td>{{$product->colors}}</td>
+                                        <td>
+                                            <div class="d-flex">
+                                                @foreach ($product->colors as $value)
+                                                    <p class="mr-1" style="width: 20px; height: 20px; border-radius: 10px; background: {{$value->color->code}}"></p>
+                                                @endforeach
+                                            </div>
+                                        </td>
+                                        <td>{{$product->category->name}}</td>
+                                        <td>{{$product->price}}</td>
+                                        <td>{{$product->count}}</td>
                                         <td>{{$product->is_active}}</td>
+                                        <td>{{$product->is_deleted}}</td>
                                         <td>
                                             <a class="btn btn-primary btn-sm"
                                                href="{{route('user.show', $product->id)}}">

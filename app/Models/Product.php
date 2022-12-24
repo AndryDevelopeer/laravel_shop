@@ -2,16 +2,32 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
     protected $table = 'products';
     protected $guarded = false;
 
-    public function getColors() :HasMany
+    public function category(): HasOne
     {
-        return $this->hasMany(Color::class, 'color_id');
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+
+    public function colors(): HasMany
+    {
+        return $this->hasMany(ProductColor::class);
+    }
+
+    public function tags(): HasMany
+    {
+        return $this->hasMany(ProductTag::class);
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(ProductImage::class);
     }
 }

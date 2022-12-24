@@ -5,13 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Color extends Model
+class ProductImage extends Model
 {
-    protected $table = 'colors';
+    protected $table = 'product_image';
     protected $guarded = false;
-
-    public function code()
-    {
-        return $this->code;
-    }
 }

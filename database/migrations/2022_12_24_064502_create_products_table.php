@@ -19,15 +19,12 @@ class CreateProductsTable extends Migration
             $table->text('description')->nullable();
             $table->text('content')->nullable();
             $table->string('preview_img')->nullable();
-            $table->string('full_img')->nullable();
             $table->integer('price');
             $table->integer('count');
-            $table->boolean('is_active');
-            $table->boolean('is_deleted');
+            $table->boolean('is_active')->default(true)->nullable();
+            $table->boolean('is_deleted')->default(false)->nullable();
 
             $table->foreignId('category_id')->index()->constrained('categories');
-            $table->foreignId('tag_id')->nullable()->index()->constrained('tags');
-            $table->foreignId('color_id')->nullable()->index()->constrained('colors');
             $table->timestamps();
         });
     }

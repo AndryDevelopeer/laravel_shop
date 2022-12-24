@@ -44,4 +44,6 @@ Route::group(['prefix' => 'users'], function () {
 
 Route::group(['prefix' => 'products'], function () {
     Route::get('/', \App\Http\Controllers\Product\IndexController::class)->name('product.index');
+    Route::get('/create', \App\Http\Controllers\Product\CreateController::class)->name('product.create');
+    Route::post('/', \App\Http\Controllers\Product\StoreController::class)->name('product.store');
 });
