@@ -31,7 +31,7 @@
                                 @foreach($categories as $category)
                                     <tr>
                                         <td>{{$category->id}}</td>
-                                        <td>{{$category->title}}</td>
+                                        <td>{{$category->name}}</td>
                                         <td><span class="text-center tag tag-success">{{$category->active}}</span></td>
                                         <td>
                                             <a class="btn btn-primary btn-sm"

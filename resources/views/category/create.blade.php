@@ -1,12 +1,15 @@
 @extends('layouts.main')
+
 @section('bread-title')
     <h1 class="m-0">Добавить категорию</h1>
 @endsection
+
 @section('bread-chain')
     <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Главная</a></li>
     <li class="breadcrumb-item">Категории</li>
     <li class="breadcrumb-item active">Добавить категорию</li>
 @endsection
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -18,14 +21,16 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Наименование</label>
-                                    <input type="text" class="form-control" name="title" placeholder="Наименование">
-                                    @if($errors->has('title'))
-                                        <div class="alert-danger"> {{ $errors->first('title') }}</div>
+                                    <input type="text" class="form-control {{ $errors->has('name')?'is-invalid':'' }}"
+                                           name="name" placeholder="Наименование">
+                                    @if($errors->has('name'))
+                                        <div class="alert-danger"> {{ $errors->first('name') }}</div>
                                     @endif
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Описание</label>
-                                    <input type="text" class="form-control" name="description" placeholder="Описание">
+                                    <input type="text" class="form-control {{ $errors->has('description')?'is-invalid':'' }}"
+                                           name="description" placeholder="Описание">
                                     @if($errors->has('description'))
                                         <div class="alert-danger"> {{ $errors->first('description') }}</div>
                                     @endif

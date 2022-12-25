@@ -24,7 +24,7 @@ class CreateProductsTable extends Migration
             $table->boolean('is_active')->default(true)->nullable();
             $table->boolean('is_deleted')->default(false)->nullable();
 
-            $table->foreignId('category_id')->index()->constrained('categories');
+            $table->foreignId('category_id')->index()->constrained('categories')->onDelete('no action');
             $table->timestamps();
         });
     }

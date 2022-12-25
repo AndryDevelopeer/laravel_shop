@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Color;
-use App\Models\Tag;
-use Illuminate\Http\Request;
 
 class CreateController extends Controller
 {
@@ -15,7 +13,10 @@ class CreateController extends Controller
         $categories = Category::all();
         $colors = Color::all();
         $tags = Tag::all();
+        $title = 'Добавить товар';
 
-        return view('product.create', compact(['categories',  'colors', 'tags']));
+        /** @TODO поле выбора картинки не сохраняет старые значения */
+
+        return view('product.create', compact(['categories', 'colors', 'tags', 'title']));
     }
 }

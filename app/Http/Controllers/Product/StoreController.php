@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Product;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\StoreRequest;
-use App\Models\Product;
-use App\Models\ProductColor;
-use App\Models\ProductTag;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use App\Models\ProductColor;
+use App\Models\ProductImage;
+use App\Models\ProductTag;
+use App\Models\Product;
+use App\Models\Image;
 
 class StoreController extends Controller
 {
@@ -16,19 +19,47 @@ class StoreController extends Controller
         $data = $request->validated();
         $data['is_active'] = $request->has('is_active');
         $data['is_deleted'] = $request->has('is_deleted');
+
+        $data['price'] = (integer)$data['price'];
+        $data['count'] = (integer)$data['count'];
+
         $tagIds = $data['tags'] ?? [];
         $colorIds = $data['colors'] ?? [];
-        unset($data['tags'], $data['colors']);
+        $images = $data['images'] ?? [];
+        $saveImages = [];
+        unset($data['tags'], $data['colors'], $data['images']);
 
-        if ($request->has('preview_image')) {
-            $data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
+        DB::beginTransaction();
+
+        /* @TODO перенести все в билдел */
+
+        if ($request->has('preview_img')) {
+            $data['preview_img'] = Storage::disk('public')->put('/images/product', $data['preview_img']);
+        }
+
+        if (!empty($images)) {
+            foreach ($images as $image) {
+                $imagePath = Storage::disk('public')->put('/images/product', $image);
+                $saveImages[] = Image::firstOrCreate([
+                    'path' => $imagePath
+                ]);
+            }
         }
 
         $product = Product::firstOrCreate($data);
-        $product->colors()->attach($colorIds);
-        $product->tags()->attach($tagIds);
 
-/*        foreach ($tagIds as $tagId) {
+        /* @TODO переделать на атач */
+        /*$product->colors()->attach($colorIds);
+        $product->tags()->attach($tagIds);*/
+
+        foreach ($saveImages as $saveImage) {
+            ProductImage::firstOrCreate([
+                'image_id' => $saveImage->id,
+                'product_id' => $product->id,
+            ]);
+        }
+
+        foreach ($tagIds as $tagId) {
             ProductTag::firstOrCreate([
                 'tag_id' => $tagId,
                 'product_id' => $product->id,
@@ -40,7 +71,9 @@ class StoreController extends Controller
                 'color_id' => $colorId,
                 'product_id' => $product->id,
             ]);
-        }*/
+        }
+
+        DB::commit();
 
         return redirect()->route('product.store');
     }

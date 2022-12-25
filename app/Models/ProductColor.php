@@ -14,4 +14,9 @@ class ProductColor extends Model
     {
         return $this->hasOne(Color::class, 'id', 'color_id');
     }
+
+    public function product(): HasOne
+    {
+        return $this->hasOne(Product::class, 'id', 'product_id');
+    }
 }

@@ -10,7 +10,9 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{asset('adminlte/plugins/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
+    <link rel="stylesheet" href="{{asset('adminlte/plugins/dropzone/min/dropzone.min.css')}}">
     <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -200,11 +202,15 @@
 <script src="{{asset('adminlte/plugins/chart.js/Chart.min.js')}}"></script>
 <script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script src="{{asset('adminlte/plugins/dropzone/dropzone.js')}}"></script>
+
 <script src="{{asset('js/app.js')}}"></script>
 <script>
-    $('.select2').select2()
-    $(document).ready(function () {
-        bsCustomFileInput.init()
+    $(function () {
+        $('.select2').select2()
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
     })
 </script>
 </body>

@@ -24,10 +24,9 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Код цвета</label>
-                                    <input type="text" class="form-control my-colorpicker1 colorpicker-element"
-                                           name="code" data-colorpicker-id="1"
-                                           placeholder="#000000" data-original-title="" title="">
+                                    <label for="exampleInputEmail1">Цвет</label>
+                                    <input type="color" class="form-control" value="#000000"
+                                           name="code" data-original-title="" title="">
                                     @if($errors->has('code'))
                                         <div class="alert-danger"> {{ $errors->first('code') }}</div>
                                     @endif

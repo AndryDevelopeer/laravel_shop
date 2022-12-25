@@ -43,31 +43,33 @@
                                         <td>
                                             <div class="d-flex">
                                                 @foreach ($product->colors as $value)
-                                                    <p class="mr-1" style="width: 20px; height: 20px; border-radius: 10px; background: {{$value->color->code}}"></p>
+                                                    <p class="mr-1"
+                                                       style="width: 20px; height: 20px; border-radius: 10px; background: {{$value->color->code}}"></p>
                                                 @endforeach
                                             </div>
                                         </td>
                                         <td>{{$product->category->name}}</td>
-                                        <td>{{$product->price}}</td>
+                                        @php(setlocale(LC_MONETARY, 'ru_RU'))
+                                        <td>{{money_format('%i',$product->price)}}</td>
                                         <td>{{$product->count}}</td>
                                         <td>{{$product->is_active}}</td>
                                         <td>{{$product->is_deleted}}</td>
                                         <td>
                                             <a class="btn btn-primary btn-sm"
-                                               href="{{route('user.show', $product->id)}}">
+                                               href="{{route('product.show', $product->id)}}">
                                                 <i class="fas fa-folder"></i>
                                                 View
                                             </a>
                                         </td>
                                         <td>
                                             <a class="btn btn-info btn-sm"
-                                               href="{{route('user.edit', $product->id)}}">
+                                               href="{{route('product.edit', $product->id)}}">
                                                 <i class="fas fa-pencil-alt"></i>
                                                 Edit
                                             </a>
                                         </td>
                                         <td>
-                                            <form action="{{route('user.delete', $product->id)}}" method="post">
+                                            <form action="{{route('product.delete', $product->id)}}" method="post">
                                                 @csrf
                                                 @method('delete')
                                                 <button class="btn btn-danger btn-sm" type="submit">
@@ -86,5 +88,6 @@
                 </div>
             </div>
         </div>
+        <div class="d-flex justify-content-center">{{ $products->links() }}</div>
     </section>
 @endsection

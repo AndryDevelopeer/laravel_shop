@@ -29,8 +29,8 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Наименование</label>
-                                    <input type="text" value="{{$color->code}}"
+                                    <label for="exampleInputEmail1">Цвет</label>
+                                    <input type="color" value="{{$color->code}}"
                                            class="form-control" name="code" placeholder="#000000">
                                     @if($errors->has('code'))
                                         <div class="alert-danger"> {{ $errors->first('code') }}</div>

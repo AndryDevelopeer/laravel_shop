@@ -9,9 +9,4 @@ class Color extends Model
 {
     protected $table = 'colors';
     protected $guarded = false;
-
-    public function code()
-    {
-        return $this->code;
-    }
 }

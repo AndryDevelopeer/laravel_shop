@@ -12,6 +12,7 @@ class IndexController extends Controller
     {
         $usersCount = User::all()->count();
         $productsCount = Product::all()->count();
+
         return view('main.index', compact(['usersCount','productsCount']));
     }
 }

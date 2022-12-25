@@ -57,5 +57,4 @@
             </div>
         </div>
     </section>
-    <script src="{{asset('adminlte/custom/script.js')}}"></script>
 @endsection
