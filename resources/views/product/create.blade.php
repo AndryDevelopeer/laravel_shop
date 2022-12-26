@@ -142,18 +142,30 @@
                                     @endif
                                 </div>
                                 <div class="custom-control custom-checkbox mb-1">
-                                    <input value="{{(old('is_active') ?? '1') ?? !isset($product->is_active) ?:($product->is_active ?? '1')}}"
+                                    <input value="1"
                                            class="custom-control-input {{ $errors->has('is_active')?'is-invalid':'' }}"
-                                           name="is_active" type="checkbox" id="customCheckbox2" checked="">
+                                           name="is_active" type="checkbox" id="customCheckbox2"
+                                    @if (isset($product->is_active))
+                                        {{ !$product->is_active ?: 'checked=""' }}
+                                            @elseif(old('is_active'))
+                                        {{ old('is_active') === '1' ? 'checked=""' : '' }}
+                                            @endif
+                                    >
                                     <label for="customCheckbox2" class="custom-control-label">Активность</label>
                                     @if($errors->has('is_active'))
                                         <div class="alert-danger"> {{ $errors->first('is_active') }}</div>
                                     @endif
                                 </div>
                                 <div class="custom-control custom-checkbox mb-2">
-                                    <input value="{{(old('is_deleted') ?? '1') ?? !isset($product->is_deleted)?'':($product->is_deleted ?? '1')}}"
+                                    <input value="1"
                                            class="custom-control-input {{ $errors->has('is_deleted')?'is-invalid':'' }}"
-                                           name="is_deleted" type="checkbox" id="customCheckbox22">
+                                           name="is_deleted" type="checkbox" id="customCheckbox22"
+                                    @if (isset($product->is_deleted))
+                                        {{ !$product->is_deleted ?: 'checked=""' }}
+                                            @elseif(old('is_deleted'))
+                                        {{ old('is_deleted') === '1' ? 'checked=""' : '' }}
+                                            @endif
+                                    >
                                     <label for="customCheckbox22" class="custom-control-label">Удален</label>
                                     @if($errors->has('is_deleted'))
                                         <div class="alert-danger"> {{ $errors->first('is_deleted') }}</div>
