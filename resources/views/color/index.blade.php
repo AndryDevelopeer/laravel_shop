@@ -1,11 +1,14 @@
 @extends('layouts.main')
+
 @section('bread-title')
     <h1 class="m-0">Цвета</h1>
 @endsection
+
 @section('bread-chain')
     <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Главная</a></li>
     <li class="breadcrumb-item active">Цвета</li>
 @endsection
+
 @section('content')
     <section class="content">
         <div class="container-fluid">
@@ -64,4 +67,5 @@
             </div>
         </div>
     </section>
+    <div class="d-flex justify-content-center">{{ $colors->links() }}</div>
 @endsection

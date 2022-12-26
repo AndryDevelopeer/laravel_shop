@@ -21,7 +21,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Наименование</label>
-                                    <input value="{{old('name') ?? !isset($product->name) ?: $product->name }}"
+                                    <input value="{{old('name') ?? !isset($product->name)?'':$product->name }}"
                                            type="text" class="form-control {{ $errors->has('name')?'is-invalid':'' }}"
                                            name="name" placeholder="Наименование">
                                     @if($errors->has('name'))
@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Описание</label>
-                                    <input value="{{old('description') ?? !isset($product->description) ?: $product->description}}"
+                                    <input value="{{old('description') ?? !isset($product->description)?'':$product->description}}"
                                            class="form-control {{ $errors->has('description')?'is-invalid':'' }}"
                                            type="text" name="description" placeholder="Описание">
                                     @if($errors->has('description'))
@@ -39,7 +39,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Контент</label>
-                                    <input value="{{old('content') ?? !isset($product->content) ?: $product->content}}"
+                                    <input value="{{old('content') ?? !isset($product->content)?'':$product->content}}"
                                            type="text"
                                            class="form-control {{ $errors->has('content')?'is-invalid':'' }}"
                                            name="content" placeholder="Контент">
@@ -124,7 +124,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Цена</label>
                                     <input id="product-price-mask"
-                                           value="{{old('price') ?? !isset($product->price) ?:$product->price}}"
+                                           value="{{old('price') ?? !isset($product->price)?'':$product->price}}"
                                            type="text" class="form-control {{ $errors->has('price')?'is-invalid':'' }}"
                                            name="price" placeholder="Цена">
                                     @if($errors->has('price'))
@@ -134,7 +134,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Количество</label>
                                     <input id="product-count-mask"
-                                           value="{{old('count') ?? !isset($product->count) ?:$product->count}}"
+                                           value="{{old('count') ?? !isset($product->count)?'':$product->count}}"
                                            type="text" class="form-control {{ $errors->has('count')?'is-invalid':'' }}"
                                            name="count" placeholder="Количество">
                                     @if($errors->has('count'))
@@ -151,7 +151,7 @@
                                     @endif
                                 </div>
                                 <div class="custom-control custom-checkbox mb-2">
-                                    <input value="{{old('is_deleted' ?? '1') ?? !isset($product->is_deleted) ?:($product->is_deleted ?? '1')}}"
+                                    <input value="{{(old('is_deleted') ?? '1') ?? !isset($product->is_deleted)?'':($product->is_deleted ?? '1')}}"
                                            class="custom-control-input {{ $errors->has('is_deleted')?'is-invalid':'' }}"
                                            name="is_deleted" type="checkbox" id="customCheckbox22">
                                     <label for="customCheckbox22" class="custom-control-label">Удален</label>
@@ -165,7 +165,7 @@
                                             name="category_id"
                                             data-placeholder="Выберите категорию" style="width: 100%;">
                                         @foreach($categories as $category)
-                                            <option {{(old('category_id') === $category->id ? 'selected' : '' ) ?? (!isset($product->count) ?:$product->count ? 'selected' : '')}}
+                                            <option {{(old('category_id') === $category->id ? 'selected' : '' ) ?? (!isset($product->count)?'':$product->count ? 'selected' : '')}}
                                                     value="{{$category->id}}">
                                                 {{$category->name}}
                                             </option>

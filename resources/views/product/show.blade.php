@@ -92,10 +92,6 @@
                         <td>Дата обновления</td>
                         <td>{{$product->updated_at}}</td>
                     </tr>
-                    <tr>
-                        <td>Активность</td>
-                        <td><span class="tag tag-success">{{$product->active}}</span></td>
-                    </tr>
                     </tbody>
                 </table>
                 <div class="col-4 d-flex mb-4">
