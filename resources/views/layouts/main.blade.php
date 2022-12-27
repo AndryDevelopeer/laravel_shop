@@ -190,6 +190,8 @@
         Все права защищены.
     </footer>
 </div>
+<!-- @TODO выглядит отстойно мб через вебпак?-->
+
 <script src="{{asset('adminlte/plugins/jquery/jquery.min.js')}}"></script>
 <script src="{{asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 <script src="{{asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
@@ -200,8 +202,8 @@
 <script src="{{asset('adminlte/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
 <script src="{{asset('adminlte/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
 <script src="{{asset('adminlte/plugins/chart.js/Chart.min.js')}}"></script>
-<script src="{{ asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
-<script src="{{ asset('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+<script src="{{asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
+<script src="{{asset('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <script src="{{asset('adminlte/plugins/dropzone/dropzone.js')}}"></script>
 
 <script src="{{asset('js/app.js')}}"></script>
