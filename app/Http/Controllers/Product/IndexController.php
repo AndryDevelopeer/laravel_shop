@@ -11,6 +11,8 @@ class IndexController extends Controller
     {
         $products = Product::paginate(10);
 
+        /* @TODO картинки не апдейтятса */
+
         return view('product.index', compact('products'));
     }
 }

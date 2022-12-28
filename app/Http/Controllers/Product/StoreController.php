@@ -26,7 +26,7 @@ class StoreController extends Controller
         $tagIds = $data['tags'] ?? [];
         $colorIds = $data['colors'] ?? [];
         $images = $data['images'] ?? [];
-        $saveImages = [];
+        $saveImagesId = [];
         unset($data['tags'], $data['colors'], $data['images']);
 
         DB::beginTransaction();
@@ -40,39 +40,28 @@ class StoreController extends Controller
         if (!empty($images)) {
             foreach ($images as $image) {
                 $imagePath = Storage::disk('public')->put('/images/product', $image);
-                $saveImages[] = Image::firstOrCreate([
+                $saveImagesId[] = Image::firstOrCreate([
                     'path' => $imagePath
-                ]);
+                ])->id;
             }
         }
 
         $product = Product::firstOrCreate($data);
 
-        /* @TODO переделать на атач */
-        /*$product->colors()->attach($colorIds);
-        $product->tags()->attach($tagIds);*/
+        $product_id = $product->id;
 
-        foreach ($saveImages as $saveImage) {
-            ProductImage::firstOrCreate([
-                'image_id' => $saveImage->id,
-                'product_id' => $product->id,
-            ]);
+        foreach ($saveImagesId as $image_id) {
+dd(compact('product_id', 'image_id'));
+            $product->images()->attach(compact('product_id', 'image_id'));
         }
 
-        foreach ($tagIds as $tagId) {
-            ProductTag::firstOrCreate([
-                'tag_id' => $tagId,
-                'product_id' => $product->id,
-            ]);
+        foreach ($tagIds as $tag_id) {
+            $product->tags()->attach(compact('product_id', 'tag_id'));
         }
 
-        foreach ($colorIds as $colorId) {
-            ProductColor::firstOrCreate([
-                'color_id' => $colorId,
-                'product_id' => $product->id,
-            ]);
+        foreach ($colorIds as $color_id) {
+            $product->colors()->attach(compact('product_id', 'color_id'));
         }
-
         DB::commit();
 
         return redirect()->route('product.store');
