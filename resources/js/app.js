@@ -26,6 +26,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const count = document.querySelector('#product-count-mask')
     if (count) Inputmask({"mask": "99999"}).mask(count)
-
 });
-

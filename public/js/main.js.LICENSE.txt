@@ -1,0 +1,104 @@
+/*!
+	Zoom 1.7.20
+	license: MIT
+	http://www.jacklmoore.com/zoom
+*/
+
+/*!
+  * Bootstrap v5.0.2 (https://getbootstrap.com/)
+  * Copyright 2011-2021 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+  */
+
+/*!
+ * Name    : Just Another Parallax [Jarallax]
+ * Version : 1.12.4
+ * Author  : nK <https://nkdev.info>
+ * GitHub  : https://github.com/nk-o/jarallax
+ */
+
+/*!
+ * Sizzle CSS Selector Engine v2.3.9
+ * https://sizzlejs.com/
+ *
+ * Copyright JS Foundation and other contributors
+ * Released under the MIT license
+ * https://js.foundation/
+ *
+ * Date: 2022-12-19
+ */
+
+/*!
+ * The Final Countdown for jQuery v2.1.0 (http://hilios.github.io/jQuery.countdown/)
+ * Copyright (c) 2015 Edson Hilios
+ * 
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of
+ * this software and associated documentation files (the "Software"), to deal in
+ * the Software without restriction, including without limitation the rights to
+ * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+ * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+ * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+ * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/*!
+ * VERSION: 1.20.2
+ * DATE: 2017-06-30
+ * UPDATES AND DOCS AT: http://greensock.com
+ * 
+ * Includes all of the following: TweenLite, TweenMax, TimelineLite, TimelineMax, EasePack, CSSPlugin, RoundPropsPlugin, BezierPlugin, AttrPlugin, DirectionalRotationPlugin
+ *
+ * @license Copyright (c) 2008-2017, GreenSock. All rights reserved.
+ * This work is subject to the terms at http://greensock.com/standard-license or for
+ * Club GreenSock members, the software agreement that was issued with your membership.
+ * 
+ * @author: Jack Doyle, jack@greensock.com
+ **/
+
+/*!
+ * jQuery JavaScript Library v3.6.3
+ * https://jquery.com/
+ *
+ * Includes Sizzle.js
+ * https://sizzlejs.com/
+ *
+ * Copyright OpenJS Foundation and other contributors
+ * Released under the MIT license
+ * https://jquery.org/license
+ *
+ * Date: 2022-12-20T21:28Z
+ */
+
+/*! WOW wow.js - v1.3.0 - 2016-10-04
+* https://wowjs.uk
+* Copyright (c) 2016 Thomas Grainger; Licensed MIT */
+
+/*! jQuery UI - v1.13.0 - 2021-10-31
+* http://jqueryui.com
+* Includes: widget.js, position.js, data.js, disable-selection.js, focusable.js, form-reset-mixin.js, jquery-patch.js, keycode.js, labels.js, scroll-parent.js, tabbable.js, unique-id.js, widgets/draggable.js, widgets/droppable.js, widgets/resizable.js, widgets/selectable.js, widgets/sortable.js, widgets/accordion.js, widgets/autocomplete.js, widgets/button.js, widgets/checkboxradio.js, widgets/controlgroup.js, widgets/datepicker.js, widgets/dialog.js, widgets/menu.js, widgets/mouse.js, widgets/progressbar.js, widgets/selectmenu.js, widgets/slider.js, widgets/spinner.js, widgets/tabs.js, widgets/tooltip.js, effect.js, effects/effect-blind.js, effects/effect-bounce.js, effects/effect-clip.js, effects/effect-drop.js, effects/effect-explode.js, effects/effect-fade.js, effects/effect-fold.js, effects/effect-highlight.js, effects/effect-puff.js, effects/effect-pulsate.js, effects/effect-scale.js, effects/effect-shake.js, effects/effect-size.js, effects/effect-slide.js, effects/effect-transfer.js
+* Copyright jQuery Foundation and other contributors; Licensed MIT */
+
+/*! jQuery v3.6.0 | (c) OpenJS Foundation and other contributors | jquery.org/license */
+
+/**!
+ * MixItUp v2.1.11
+ *
+ * @copyright Copyright 2015 KunkaLabs Limited.
+ * @author    KunkaLabs Limited.
+ * @link      https://mixitup.kunkalabs.com
+ *
+ * @license   Commercial use requires a commercial license.
+ *            https://mixitup.kunkalabs.com/licenses/
+ *
+ *            Non-commercial use permitted under terms of CC-BY-NC license.
+ *            http://creativecommons.org/licenses/by-nc/3.0/
+ */

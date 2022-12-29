@@ -1,8 +1,23 @@
 const mix = require('laravel-mix');
 
 /* admin */
-mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/app.css', 'public/css', []);
+mix.js('resources/js/app.js', 'public/js/app.js')
+    .css('resources/adminlte/plugins/select2/css/select2.min.css', 'public/css/app.css')
+    .css('resources/adminlte/plugins/fontawesome-free/css/all.min.css', 'public/css/app.css')
+    .css('resources/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css', 'public/css/app.css')
+    .css('resources/adminlte/plugins/dropzone/min/dropzone.min.css', 'public/css/app.css')
+    .css('resources/adminlte/dist/css/adminlte.css', 'public/css/app.css')
+    .css('resources/css/app.css', 'public/css/app.css')
+    .js([
+        'resources/adminlte/dist/js/adminlte.js',
+        'resources/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js',
+        'resources/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js',
+        'resources/adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js',
+        'resources/adminlte/plugins/raphael/raphael.min.js',
+        'resources/adminlte/plugins/select2/js/select2.full.min.js',
+        'resources/adminlte/plugins/dropzone/dropzone.js',
+        'resources/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.js',
+    ], 'public/js/app.js');
 
 /* site */
 mix.css("resources/vue/assets/css/bootstrap.5.1.1.min.css", 'public/css/main.css', [])

@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Управление интернет магазином</title>
-
-    <link rel="stylesheet" href="{{asset('adminlte/plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="{{asset('adminlte/plugins/fontawesome-free/css/all.min.css')}}">
-    <link rel="stylesheet" href="{{asset('adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css')}}">
-    <link rel="stylesheet" href="{{asset('adminlte/plugins/dropzone/min/dropzone.min.css')}}">
-    <link rel="stylesheet" href="{{asset('adminlte/dist/css/adminlte.min.css')}}">
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -124,7 +118,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
                     <li class="nav-item">
-                        <a href="pages/gallery.html" class="nav-link">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-shopping-bag"></i>
                             <p>Заказы</p>
                         </a>
@@ -190,30 +184,6 @@
         Все права защищены.
     </footer>
 </div>
-<!-- @TODO выглядит отстойно мб через вебпак?-->
-
-<script src="{{asset('adminlte/plugins/jquery/jquery.min.js')}}"></script>
-<script src="{{asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js')}}"></script>
-<script src="{{asset('adminlte/dist/js/adminlte.js')}}"></script>
-
-<script src="{{asset('adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js')}}"></script>
-<script src="{{asset('adminlte/plugins/raphael/raphael.min.js')}}"></script>
-<script src="{{asset('adminlte/plugins/jquery-mapael/jquery.mapael.min.js')}}"></script>
-<script src="{{asset('adminlte/plugins/jquery-mapael/maps/usa_states.min.js')}}"></script>
-<script src="{{asset('adminlte/plugins/chart.js/Chart.min.js')}}"></script>
-<script src="{{asset('adminlte/plugins/select2/js/select2.full.min.js') }}"></script>
-<script src="{{asset('adminlte/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
-<script src="{{asset('adminlte/plugins/dropzone/dropzone.js')}}"></script>
-
 <script src="{{asset('js/app.js')}}"></script>
-<script>
-    $(function () {
-        $('.select2').select2()
-        $(document).ready(function () {
-            bsCustomFileInput.init()
-        })
-    })
-</script>
 </body>
 </html>
