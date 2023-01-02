@@ -6,7 +6,7 @@
     <title>Управление интернет магазином</title>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/admin-app.css')}}">
 </head>
 <body class="hold-transition dark-mode sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
@@ -184,6 +184,16 @@
         Все права защищены.
     </footer>
 </div>
-<script src="{{asset('js/app.js')}}"></script>
+<script src="{{asset('js/admin-app.js')}}"></script>
+<script>
+    $(function () {
+        if ($('.select2')) {
+            $('.select2').select2()
+            $(document).ready(function () {
+               // bsCustomFileInput.init()
+            })
+        }
+    })
+</script>
 </body>
 </html>

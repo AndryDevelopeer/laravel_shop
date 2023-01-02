@@ -9,19 +9,24 @@
     <li class="breadcrumb-item"><a href="{{route('product.index')}}">Товары</a></li>
     <li class="breadcrumb-item active">{{$title}}</li>
 @endsection
-
+{{-- @TODO не работатают старые значения --}}
 @section('content')
     <section class="content">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card card-primary">
-                        <form action="{{route('product.store')}}" method="post" enctype="multipart/form-data">
+                        <form action="{{route('product.' . $type, $type === 'update' ? $product->id : null )}}"
+                              id="edit-form"
+                              method="post" enctype="multipart/form-data">
                             @csrf
+                            @if($type === 'update')
+                                @method('patch')
+                            @endif
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Наименование</label>
-                                    <input value="{{old('name') ?? !isset($product->name)?'':$product->name }}"
+                                    <input value="{{old('name') ? old('name') : ($product->name ?? null)}}"
                                            type="text" class="form-control {{ $errors->has('name')?'is-invalid':'' }}"
                                            name="name" placeholder="Наименование">
                                     @if($errors->has('name'))
@@ -30,7 +35,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Описание</label>
-                                    <input value="{{old('description') ?? !isset($product->description)?'':$product->description}}"
+                                    <input value="{{old('description') ? old('description') : ($product->description ?? null)}}"
                                            class="form-control {{ $errors->has('description')?'is-invalid':'' }}"
                                            type="text" name="description" placeholder="Описание">
                                     @if($errors->has('description'))
@@ -39,7 +44,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Контент</label>
-                                    <input value="{{old('content') ?? !isset($product->content)?'':$product->content}}"
+                                    <input value="{{old('content') ? old('content') : ($product->content ?? null)}}"
                                            type="text"
                                            class="form-control {{ $errors->has('content')?'is-invalid':'' }}"
                                            name="content" placeholder="Контент">
@@ -52,11 +57,11 @@
                                     <div class="input-group">
                                         <div class="custom-file">
                                             <input type="file" name="preview_img"
-                                                   value="{{old('preview_img')}}"
-                                                   class="custom-file-input {{ $errors->has('file')?'is-invalid':'' }}"
+                                                   value="{{old('preview_img') ? old('preview_img') : ($product->content ?? null)}}"
+                                                   class="custom-file-input {{ $errors->has('preview_img')?'is-invalid':'' }}"
                                                    id="exampleInputFile">
                                             <label class="custom-file-label"
-                                                   for="exampleInputFile">{{isset($product->preview_img) ?$product->preview_img:'выберите файл'}}
+                                                   for="exampleInputFile">{{isset($product->preview_img) ? $product->preview_img:'выберите файл'}}
                                             </label>
                                         </div>
                                     </div>
@@ -72,59 +77,46 @@
                                                 выберите файл
                                             </div>
                                             <div class="card-body">
-                                                <div id="actions" class="row mb-3">
-                                                    <div class="col-lg-6">
-                                                        <div class="btn-group w-50"><span
-                                                                    class="btn btn-success col fileinput-button"><i
-                                                                        class="fas fa-plus mr-1"></i><span>Добавить файл</span>
-                                                            </span>
+                                                <div class="row mb-3">
+                                                    <div class="col-lg-10">
+                                                        <div class="btn-group w-75">
+                                                            <label class="w-50">
+                                                                <input onchange="selectFile(this)"
+                                                                       id="multi-input" multiple type="file"
+                                                                       name="images[]" hidden/>
+                                                                <span class="btn btn-success col"
+                                                                      id="input-file-replacer">
+                                                                    <i class="fas fa-plus mr-1"></i>Выбрать файл
+                                                                </span>
+                                                            </label>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="table table-striped files" id="previews">
-                                                    <div id="template" class="row mt-2">
-                                                        <div class="col-auto">
-                                                            <span class="preview">
-                                                                <img src="data:," alt="" data-dz-thumbnail/>
-                                                            </span>
-                                                        </div>
-                                                        <div class="col d-flex align-items-center">
-                                                            <p class="mb-0">
-                                                                <span class="lead" data-dz-name></span>
-                                                                (<span data-dz-size></span>)
-                                                            </p>
-                                                            <strong class="error text-danger"
-                                                                    data-dz-errormessage></strong>
-                                                        </div>
-                                                        <div class="col-auto d-flex align-items-center">
-                                                            <div class="btn-group">
-                                                                <button hidden class="btn btn-primary start">
-                                                                    <i class="fas fa-upload"></i>
-                                                                    <span>Start</span>
-                                                                </button>
-                                                                <button hidden data-dz-remove
-                                                                        class="btn btn-warning cancel">
-                                                                    <i class="fas fa-times-circle"></i>
-                                                                    <span>Cancel</span>
-                                                                </button>
-                                                                <button hidden data-dz-remove
-                                                                        class="btn btn-danger delete">
-                                                                    <i class="fas fa-trash"></i>
-                                                                    <span>Delete</span>
-                                                                </button>
-                                                            </div>
+                                                        <div class="added-file">
+                                                            @if($product ?? null)
+                                                                @foreach($product->images as $key => $item)
+                                                                    <div id="blade{{$item->image->id}}"
+                                                                         class="added-file-item d-flex justify-content-between"
+                                                                         style="margin-top: 10px">
+                                                                        <img id="img" style="height: 80px"
+                                                                             src="{{'/storage/'.$item->image->path}}"
+                                                                             alt="">
+                                                                        <a key="blade{{$item->image->id}}"
+                                                                           imgId="{{$item->image->id}}"
+                                                                           onclick="deleteImage(this)"
+                                                                           class="btn btn-danger mr-1 mt-10 h-50">Удалить</a>
+                                                                    </div>
+                                                                @endforeach
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <input id="multi-input" multiple type="file" name="images[]" hidden>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Цена</label>
                                     <input id="product-price-mask"
-                                           value="{{old('price') ?? !isset($product->price)?'':$product->price}}"
+                                           value="{{old('price') ? old('price') : ($product->price ?? null)}}"
                                            type="text" class="form-control {{ $errors->has('price')?'is-invalid':'' }}"
                                            name="price" placeholder="Цена">
                                     @if($errors->has('price'))
@@ -134,7 +126,7 @@
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Количество</label>
                                     <input id="product-count-mask"
-                                           value="{{old('count') ?? !isset($product->count)?'':$product->count}}"
+                                           value="{{old('count') ? old('count') : ($product->count ?? null)}}"
                                            type="text" class="form-control {{ $errors->has('count')?'is-invalid':'' }}"
                                            name="count" placeholder="Количество">
                                     @if($errors->has('count'))
@@ -227,8 +219,10 @@
                                 </div>
                             </div>
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary mr-1">Сохранить</button>
-                                <a href="{{route('category.index')}}" class="btn btn-secondary">Отмена</a>
+                                <button onclick="sendForm(event, {{$product->id ?? null}})"
+                                        type="submit" class="btn btn-primary mr-1">Сохранить
+                                </button>
+                                <a href="{{route('product.index')}}" class="btn btn-secondary">Отмена</a>
                             </div>
                         </form>
                     </div>
@@ -237,28 +231,73 @@
         </div>
     </section>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // DropzoneJS Demo Code Start
-            Dropzone.autoDiscover = false
 
-            // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
-            var previewNode = document.querySelector("#template")
-            previewNode.id = ""
-            var previewTemplate = previewNode.parentNode.innerHTML
-            previewNode.parentNode.removeChild(previewNode)
+        /* @TODO завернуть это все в класс ? */
+        const dataTransfer = new DataTransfer()
+        let itemsNeedDelete = []
+        let items = []
 
-            var myDropzone = new Dropzone(document.body, { // Make the whole body a dropzone
-                url: "/target-url", // Set the url
-                thumbnailWidth: 80,
-                thumbnailHeight: 80,
-                parallelUploads: 20,
-                previewTemplate: previewTemplate,
-                autoQueue: false, // Make sure the files aren't queued until manually added
-                previewsContainer: "#previews", // Define the container to display the previews
-                clickable: ".fileinput-button",
-                inputId: "multi-input"// Define the element that should be used as click trigger to select files.
+        function renderLoaderItem(key, path) {
+            const div = document.createElement('div')
+            div.innerHTML =
+                `<div id="${key}" class="added-file-item d-flex justify-content-between" style="margin-top: 10px">
+<img id="img" style="height: 80px" src="${path}" alt="">
+<a key="${key}" onclick="deleteImageFromLoader(this)" class="btn btn-danger mr-1 mt-10 h-50">Удалить</a></div>`
+            document.querySelector('.added-file').append(div)
+        }
+
+        function selectFile(event) {
+            Object.values(event.files).forEach((item, index) => {
+                const reader = new FileReader();
+                const file = event.files[index];
+                reader.onload = function (e) {
+                    items.push(new File([], e.target.result))
+                    renderLoaderItem(e.timeStamp, e.target.result)
+                }
+                reader.readAsDataURL(file);
+                dataTransfer.items.add(file)
             })
-            // DropzoneJS Demo Code End
-        });
+            event.files = dataTransfer.files
+        }
+
+        function deleteImage(element) {
+            const key = element.getAttribute('key')
+            itemsNeedDelete.push(element.getAttribute('imgId'))
+            document.getElementById(key).remove()
+        }
+
+        function deleteImageFromLoader(event) {
+            const key = event.getAttribute('key')
+            document.getElementById(key).remove()
+            items.splice(key, 1)
+            const dataTransfer = new DataTransfer();
+            items.forEach(el => {
+                dataTransfer.items.add(el)
+            })
+            document.getElementById('multi-input').files = dataTransfer.files
+        }
+
+        function sendForm(event, productId) {
+            event.preventDefault()
+            if (itemsNeedDelete.length > 0) {
+                fetch('http://127.0.0.1:8000/api/admin/product/image/delete', {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        'imgIds': itemsNeedDelete,
+                        'productId': productId
+                    })
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.success) document.getElementById('edit-form').submit()
+                        else alert('Что то пошло не так :(')
+                    })
+            }
+            document.getElementById('edit-form').submit()
+        }
     </script>
 @endsection

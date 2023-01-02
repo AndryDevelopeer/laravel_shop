@@ -15,9 +15,10 @@ class CreateController extends Controller
         $colors = Color::all();
         $tags = Tag::all();
         $title = 'Добавить товар';
+        $type = 'store';
 
         /** @TODO поле выбора картинки не сохраняет старые значения */
 
-        return view('product.create', compact(['categories', 'colors', 'tags', 'title']));
+        return view('product.create', compact(['categories', 'colors', 'tags', 'title', 'type']));
     }
 }

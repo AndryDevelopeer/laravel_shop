@@ -9,7 +9,7 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $tags = Tag::paginate(10);
+        $tags = Tag::orderBy('id', 'desc')->paginate(10);
 
         return view('tag.index', compact('tags'));
     }

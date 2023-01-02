@@ -161,7 +161,6 @@ $(document).ready(function (){
         }
       }
     };
-
     return bsCustomFileInput;
 
   })));

@@ -9,9 +9,7 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
-        $products = Product::paginate(10);
-
-        /* @TODO картинки не апдейтятса */
+        $products = Product::orderBy('id', 'desc')->paginate(10);
 
         return view('product.index', compact('products'));
     }

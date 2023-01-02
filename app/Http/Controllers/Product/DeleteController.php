@@ -19,8 +19,10 @@ class DeleteController extends Controller
         $product->tags->each(function ($tag) {
             $tag->delete();
         });
-        $product->images->each(function ($image) {
-            $image->delete();
+        $product->images->each(function ($item) use (&$paths) {
+            $paths[] = $item->image->path;
+            $item->delete();
+            $item->image->delete();
         });
 
         if (!empty($paths) && $product->deleteOrFail()) {

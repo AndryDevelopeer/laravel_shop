@@ -16,9 +16,17 @@ class EditController extends Controller
         $colors = Color::all();
         $tags = Tag::all();
         $title = 'Редактировать товар';
+        $type = 'update';
+        $images = [];
 
+        foreach ($product->images as $item) {
+            $images[] = $item->image->path;
+        }
         /** @TODO поле выбора картинки не сохраняет старые значения */
+        /* @TODO подставлять картинки в мультиселект */
 
-        return view('product.create', compact(['product', 'categories', 'colors', 'tags', 'title']));
+        return view('product.create', compact([
+            'product', 'categories', 'colors', 'tags', 'title', 'type', 'images'
+        ]));
     }
 }

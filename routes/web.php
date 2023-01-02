@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin/', \App\Http\Controllers\Main\IndexController::class)->name('admin.index');
 Route::get('/', \App\Http\Controllers\SiteController::class)->name('site.index');
+Route::get('/dev', \App\Http\Controllers\Dev\IndexController::class)->name('dev.index');
 
 Route::group(['prefix' => 'categories'], function () {
     Route::get('/', \App\Http\Controllers\Category\IndexController::class)->name('category.index');
@@ -49,5 +50,6 @@ Route::group(['prefix' => 'products'], function () {
     Route::post('/', \App\Http\Controllers\Product\StoreController::class)->name('product.store');
     Route::get('/{product}', \App\Http\Controllers\Product\ShowController::class)->name('product.show');
     Route::get('/{product}/edit', \App\Http\Controllers\Product\EditController::class)->name('product.edit');
+    Route::patch('/{product}', \App\Http\Controllers\Product\UpdateController::class)->name('product.update');
     Route::delete('/{product}', \App\Http\Controllers\Product\DeleteController::class)->name('product.delete');
 });

@@ -34,7 +34,8 @@
                     </tr>
                     <tr>
                         <td>Картинка предосмотра</td>
-                        <td><img class="admin-preview-picture" src="{{asset('storage/'.$product->preview_img)}}" alt="">
+                        <td><img class="admin-preview-picture" alt=""
+                                 src="@if($product->preview_img){{asset('storage/'.$product->preview_img)}}@endif">
                         </td>
                     </tr>
                     <tr>
