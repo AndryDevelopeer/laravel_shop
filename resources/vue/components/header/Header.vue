@@ -396,7 +396,7 @@
                       <div class="right d-flex align-items-center justify-content-end">
                         <ul class="main-menu__widge-box d-flex align-items-center ">
                           <li class="d-lg-block d-none">
-                            <router-link to="/auth"><i class="flaticon-user"></i></router-link>
+                            <router-link to="/personal"><i class="flaticon-user"></i></router-link>
                           </li>
                           <li class="d-lg-block d-none"><a href="wishlist.html"
                                                            class="number"><i class="flaticon-heart"></i> <span

@@ -44,4 +44,26 @@ mix.css("resources/vue/assets/css/bootstrap.5.1.1.min.css", 'public/css/main.css
     ], 'public/js/main.js');
 
 mix.js('resources/vue/app.js', 'public/js/app.js')
-    .vue();
+    .vue()
+    .webpackConfig({
+        module: {
+            rules: [
+                {
+                    test: /\.tsx?$/,
+                    loader: 'ts-loader',
+                    exclude: /node_modules/,
+                    options: {
+                        appendTsSuffixTo: [/\.vue$/],
+                        transpileOnly:true
+                    }
+                },
+                {
+                    test: /\.vue$/,
+                    loader: 'vue-loader'
+                }
+            ]
+        },
+        resolve: {
+            extensions: ["*", ".js", ".jsx", ".vue", ".ts", ".tsx"]
+        }
+    });

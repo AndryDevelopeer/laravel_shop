@@ -18,6 +18,11 @@ const router = createRouter({
             name: 'register',
             component: () => import('../components/auth/Register')
         },
+        {
+            path: '/personal',
+            name: 'personal',
+            component: () => import('../components/auth/Personal')
+        },
     ]
 })
 

@@ -4953,7 +4953,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" =
       o = (_ref7 = []).concat.apply(_ref7, _toConsumableArray(i.body.querySelectorAll("*")));
     var _loop = function _loop() {
       var _ref8;
-      var s = o[t],
+      var s = o[_t9],
         i = s.nodeName.toLowerCase();
       if (!n.includes(i)) {
         s.remove();
