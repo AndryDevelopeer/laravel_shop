@@ -20216,25 +20216,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../router */ "./resources/vue/router/index.js");
+/* harmony import */ var _modules_auth_AuthModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/auth/AuthModule */ "./resources/vue/store/modules/auth/AuthModule.js");
 
 
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {},
+  mutations: {},
+  actions: {},
+  modules: {
+    auth: _modules_auth_AuthModule__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
+
+/***/ }),
+
+/***/ "./resources/vue/store/modules/auth/AuthModule.js":
+/*!********************************************************!*\
+  !*** ./resources/vue/store/modules/auth/AuthModule.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../router */ "./resources/vue/router/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var AuthModule = {
+  state: {
+    form: {
+      email: null,
+      password: null
+    },
+    passwordVisible: false,
+    errors: {
+      email: null,
+      password: null
+    }
+  },
   mutations: {
     logout: function logout() {
       document.cookie = "accessToken=;max-age=0;";
+      window.localStorage.removeItem('refreshToken');
       _router__WEBPACK_IMPORTED_MODULE_0__["default"].replace('/');
+    },
+    setTokens: function setTokens(state, data) {
+      document.cookie = "accessToken=" + data.accessToken + "; max-age=900; path=/";
+      window.localStorage.setItem('refreshToken', data.accessToken);
+    },
+    setErrors: function setErrors(state, errors) {
+      state.errors.email = errors.email;
+      state.errors.password = errors.password;
+    },
+    clearForm: function clearForm(state) {
+      state.form.email = null;
+      state.form.password = null;
     }
   },
   actions: {
     logout: function logout(_ref) {
       var commit = _ref.commit;
       commit('logout');
+    },
+    login: function login(context) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/auth/login', context.state.form).then(function (response) {
+        var result = response === null || response === void 0 ? void 0 : response.data;
+        if (result !== null && result !== void 0 && result.success) {
+          context.commit('setTokens', result.data);
+          context.commit('clearForm');
+          _router__WEBPACK_IMPORTED_MODULE_0__["default"].replace('/personal');
+        } else {
+          context.commit('setErrors', result.errors);
+        }
+      })["catch"](function (error) {
+        context.commit('setErrors', error.response.data.errors);
+      });
+    },
+    checkRefresh: function checkRefresh(_ref2) {
+      var commit = _ref2.commit;
     }
   }
-});
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AuthModule);
 
 /***/ }),
 

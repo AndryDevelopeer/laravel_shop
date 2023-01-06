@@ -13,24 +13,24 @@
             </div>
             <form class="common-form">
               <div class="form-group">
-                <input v-model="form.email" type="text"
-                       :class="errors.email ? 'error-input' :''"
-                       @input="errors.email = null"
+                <input v-model="auth.form.email" type="text"
+                       :class="auth.errors.email ? 'error-input' :''"
+                       @input="auth.errors.email = null"
                        class="form-control" placeholder="Ваш емайл">
-                <span class="error" v-for="(error, index) in errors.email" :key="index">{{ error }}&ensp;</span>
+                <span class="error" v-for="(error, index) in auth.errors.email" :key="index">{{ error }}&ensp;</span>
               </div>
               <div class="form-group eye">
                 <div class="icon icon-1">
-                  <i :class="!passwordVisible ?'flaticon-hidden':'flaticon-visibility'"
-                     @click="passwordVisible = !passwordVisible"></i>
+                  <i :class="!auth.passwordVisible ?'flaticon-hidden':'flaticon-visibility'"
+                     @click="auth.passwordVisible = !auth.passwordVisible"></i>
                 </div>
-                <input v-model="form.password"
-                       :type="passwordVisible ?'text':'password'"
-                       :class="errors.password ? 'error-input' :''"
-                       @input="errors.password = null"
+                <input v-model="auth.form.password"
+                       :type="auth.passwordVisible ?'text':'password'"
+                       :class="auth.errors.password ? 'error-input' :''"
+                       @input="auth.errors.password = null"
                        id="password-field" class="form-control"
                        placeholder="Пароль">
-                <span class="error" v-for="(error, index) in errors.password" :key="index">{{ error }}&ensp;</span>
+                <span class="error" v-for="(error, index) in auth.errors.password" :key="index">{{ error }}&ensp;</span>
               </div>
               <div class="checkk ">
                 <div class="form-check p-0 m-0">
@@ -48,41 +48,17 @@
 </template>
 
 <script>
-import router from "../../router";
+import {mapState} from 'vuex';
 
 export default {
   name: "Auth",
+  computed: mapState(['auth']),
   data() {
-    return {
-      form: {
-        email: null,
-        password: null,
-      },
-      passwordVisible: false,
-      errors: {
-        email: null,
-        password: null
-      }
-    }
+    return {}
   },
   methods: {
     sendForm() {
-      this.axios.post('/api/auth/login', JSON.stringify(this.form))
-          .then(response => {
-            const result = response?.data
-            if (result?.success) {
-              document.cookie = "accessToken=" + result.data.accessToken + "; max-age=900; path=/"
-              window.localStorage.setItem('refreshToken', result.data.accessToken)
-              router.replace('/personal')
-            } else {
-              this.errors.email = result.errors.email
-              this.errors.password = result.errors.password
-            }
-          })
-          .catch((error) => {
-            this.errors.email = error.response.data.errors.email
-            this.errors.password = error.response.data.errors.password
-          })
+      this.$store.dispatch('login')
     }
   }
 }

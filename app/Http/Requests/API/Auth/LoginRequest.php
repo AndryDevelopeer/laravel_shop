@@ -24,8 +24,8 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'string|required',
-            'password' => 'string|required',
+            'email' => 'string|required|max:1024',
+            'password' => 'string|required|max:255',
         ];
     }
 
@@ -34,8 +34,10 @@ class LoginRequest extends FormRequest
         return [
             'email.required' => 'Поле емайл не заполнено',
             'email.string' => 'Поле емайл должно быть строкой',
+            'email.max' => 'Не допустимая длинна емайл',
             'password.required' => 'Поле пароль не заполнено',
             'password.string' => 'Поле пароль должно быть строкой',
+            'password.max' => 'Не допустимая длинна пароля',
         ];
     }
 }

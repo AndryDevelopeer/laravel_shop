@@ -11,40 +11,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../router */ "./resources/vue/router/index.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Auth",
+  computed: (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)(['auth']),
   data: function data() {
-    return {
-      form: {
-        email: null,
-        password: null
-      },
-      passwordVisible: false,
-      errors: {
-        email: null,
-        password: null
-      }
-    };
+    return {};
   },
   methods: {
     sendForm: function sendForm() {
-      var _this = this;
-      this.axios.post('/api/auth/login', JSON.stringify(this.form)).then(function (response) {
-        var result = response === null || response === void 0 ? void 0 : response.data;
-        if (result !== null && result !== void 0 && result.success) {
-          document.cookie = "accessToken=" + result.data.accessToken + "; max-age=900; path=/";
-          window.localStorage.setItem('refreshToken', result.data.accessToken);
-          _router__WEBPACK_IMPORTED_MODULE_0__["default"].replace('/personal');
-        } else {
-          _this.errors.email = result.errors.email;
-          _this.errors.password = result.errors.password;
-        }
-      })["catch"](function (error) {
-        _this.errors.email = error.response.data.errors.email;
-        _this.errors.password = error.response.data.errors.password;
-      });
+      this.$store.dispatch('login');
     }
   }
 });
@@ -125,36 +102,36 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1 /* STABLE */
   })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $data.form.email = $event;
+      return _ctx.auth.form.email = $event;
     }),
     type: "text",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$data.errors.email ? 'error-input' : '', "form-control"]),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([_ctx.auth.errors.email ? 'error-input' : '', "form-control"]),
     onInput: _cache[1] || (_cache[1] = function ($event) {
-      return $data.errors.email = null;
+      return _ctx.auth.errors.email = null;
     }),
     placeholder: "Ваш емайл"
-  }, null, 34 /* CLASS, HYDRATE_EVENTS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.email]]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.errors.email, function (error, index) {
+  }, null, 34 /* CLASS, HYDRATE_EVENTS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, _ctx.auth.form.email]]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.auth.errors.email, function (error, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
       "class": "error",
       key: index
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(error) + " ", 1 /* TEXT */);
   }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(!$data.passwordVisible ? 'flaticon-hidden' : 'flaticon-visibility'),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(!_ctx.auth.passwordVisible ? 'flaticon-hidden' : 'flaticon-visibility'),
     onClick: _cache[2] || (_cache[2] = function ($event) {
-      return $data.passwordVisible = !$data.passwordVisible;
+      return _ctx.auth.passwordVisible = !_ctx.auth.passwordVisible;
     })
   }, null, 2 /* CLASS */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-      return $data.form.password = $event;
+      return _ctx.auth.form.password = $event;
     }),
-    type: $data.passwordVisible ? 'text' : 'password',
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$data.errors.password ? 'error-input' : '', "form-control"]),
+    type: _ctx.auth.passwordVisible ? 'text' : 'password',
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([_ctx.auth.errors.password ? 'error-input' : '', "form-control"]),
     onInput: _cache[4] || (_cache[4] = function ($event) {
-      return $data.errors.password = null;
+      return _ctx.auth.errors.password = null;
     }),
     id: "password-field",
     placeholder: "Пароль"
-  }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, _hoisted_12), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, $data.form.password]]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.errors.password, function (error, index) {
+  }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, _hoisted_12), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelDynamic, _ctx.auth.form.password]]), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.auth.errors.password, function (error, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
       "class": "error",
       key: index

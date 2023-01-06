@@ -1,19 +1,12 @@
 import vuex from "vuex";
-import router from "../router";
+import auth from './modules/auth/AuthModule'
 
 const store = new vuex.Store({
-    state: {
-    },
-    mutations: {
-        logout() {
-            document.cookie = "accessToken=;max-age=0;"
-            router.replace('/')
-        }
-    },
-    actions: {
-        logout({commit}) {
-            commit('logout')
-        }
+    state: {},
+    mutations: {},
+    actions: {},
+    modules: {
+        auth
     }
 })
 
