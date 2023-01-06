@@ -28,6 +28,7 @@ class UpdateRequest extends FormRequest
             'phone' => 'required|string|max:256',
             'email' => 'required|string|max:1024',
             'password' => 'required|string|max:1024|confirmed',
+            'role_id' => 'required|integer',
             'gender' => 'string|max:24',
             'age' => 'integer|regex:/^\d+$/',
             'address' => 'string|max:1024',

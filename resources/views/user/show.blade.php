@@ -37,6 +37,10 @@
                         <td>{{$user->password ? '****' : ''}}</td>
                     </tr>
                     <tr>
+                        <td>Роль</td>
+                        <td>{{$user->role->name}}</td>
+                    </tr>
+                    <tr>
                         <td>Пол</td>
                         <td>{{$user->gender}}</td>
                     </tr>
@@ -66,11 +70,11 @@
                     <form action="{{route('user.delete', $user->id)}}" method="post">
                         @csrf
                         @method('delete')
-                        <button class="btn btn-danger mr-1" type="submit">
+                        <button class="btn btn-danger mr-2" type="submit">
                             Удалить
                         </button>
-                        <a href="{{route('user.index')}}" class="btn btn-secondary">Отмена</a>
                     </form>
+                    <a href="{{route('user.index')}}" class="btn btn-secondary">Отмена</a>
                 </div>
             </div>
         </div>

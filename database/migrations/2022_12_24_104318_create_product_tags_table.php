@@ -15,8 +15,8 @@ class CreateProductTagsTable extends Migration
     {
         Schema::create('product_tag', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('tag_id')->nullable()->index()->constrained('tags');
-            $table->foreignId('product_id')->nullable()->index()->constrained('products');
+            $table->foreignId('tag_id')->nullable()->index()->constrained('tags')->onDelete('no action');
+            $table->foreignId('product_id')->nullable()->index()->constrained('products')->onDelete('no action');
             $table->timestamps();
         });
     }
@@ -28,6 +28,11 @@ class CreateProductTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_tags');
+        Schema::table('product_tag', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('product_id');
+            $table->dropConstrainedForeignId('tag_id');
+        });
+
+        Schema::dropIfExists('product_tag');
     }
 }

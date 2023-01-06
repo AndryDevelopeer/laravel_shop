@@ -15,8 +15,8 @@ class CreateProductColorsTable extends Migration
     {
         Schema::create('product_color', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('color_id')->nullable()->index()->constrained('colors');
-            $table->foreignId('product_id')->nullable()->index()->constrained('products');
+            $table->foreignId('color_id')->nullable()->index()->constrained('colors')->onDelete('no action');
+            $table->foreignId('product_id')->nullable()->index()->constrained('products')->onDelete('no action');
             $table->timestamps();
         });
     }
@@ -28,6 +28,11 @@ class CreateProductColorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_colors');
+        Schema::table('product_color', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('product_id');
+            $table->dropConstrainedForeignId('color_id');
+        });
+
+        Schema::dropIfExists('product_color');
     }
 }

@@ -31,6 +31,15 @@
                                                     </option>
                                                 @endforeach
                                             </select>
+                                        @elseif($field['type'] === 'role')
+                                            <select name="{{$fieldName}}"
+                                                    class="custom-select mr-2 {{ $errors->has($fieldName)?'is-invalid':'' }}">
+                                                @foreach($roles as $role)
+                                                    <option {{old('role') == $role->id ?'selected':''}} value="{{$role->id}}">
+                                                        {{$role->name}}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         @elseif(in_array($field['type'], ['text', 'number']))
                                             <input type="{{$field['type']}}"
                                                    value="{{old($fieldName)}}"

@@ -15,8 +15,8 @@ class CreateProductImagesTable extends Migration
     {
         Schema::create('product_image', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('image_id')->nullable()->index()->constrained('images');
-            $table->foreignId('product_id')->nullable()->index()->constrained('products');
+            $table->foreignId('image_id')->nullable()->index()->constrained('images')->onDelete('no action');
+            $table->foreignId('product_id')->nullable()->index()->constrained('products')->onDelete('no action');
             $table->timestamps();
         });
     }
@@ -28,6 +28,11 @@ class CreateProductImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_images');
+        Schema::table('product_image', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('product_id');
+            $table->dropConstrainedForeignId('image_id');
+        });
+
+        Schema::dropIfExists('product_image');
     }
 }

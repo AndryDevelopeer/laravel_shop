@@ -11,7 +11,7 @@ class AuthoriseController extends Controller
 {
     public function __invoke(Request $request, APIResponse $response, AuthService $auth)
     {
-        $response->success = $auth->attempt($request->cookie('accessToken') ?? '');
+        $response->success = $auth->attempt();
         return $response->asJson();
     }
 }

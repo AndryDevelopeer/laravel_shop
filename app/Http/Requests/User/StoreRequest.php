@@ -28,6 +28,7 @@ class StoreRequest extends FormRequest
             'phone' => 'required|string|max:256|unique:users',
             'email' => 'required|string|max:1024|unique:users',
             'password' => 'required|string|max:1024|confirmed',
+            'role_id' => 'required|integer',
             'gender' => 'string|max:24|nullable',
             'age' => 'integer|nullable|regex:/^\d+$/',
             'address' => 'string|max:1024|nullable',

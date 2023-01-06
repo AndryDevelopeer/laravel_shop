@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('address', 1024)->nullable();
             $table->integer('age')->nullable();
-            $table->boolean('is_admin')->nullable();
+            $table->foreignId('role_id')->default(1)->index()->constrained('roles')->onDelete('no action');
             $table->rememberToken();
             $table->timestamps();
         });
@@ -36,6 +36,9 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropConstrainedForeignId('role_id');
+        });
         Schema::dropIfExists('users');
     }
 }
