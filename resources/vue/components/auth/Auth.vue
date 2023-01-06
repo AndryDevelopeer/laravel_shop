@@ -13,24 +13,32 @@
             </div>
             <form class="common-form">
               <div class="form-group">
-                <input v-model="form.email" type="text" class="form-control" placeholder="Ваш емайл">
+                <input v-model="form.email" type="text"
+                       :class="errors.email ? 'error-input' :''"
+                       @input="errors.email = null"
+                       class="form-control" placeholder="Ваш емайл">
+                <span class="error" v-for="(error, index) in errors.email" :key="index">{{ error }}&ensp;</span>
               </div>
               <div class="form-group eye">
                 <div class="icon icon-1">
-                  <i class="flaticon-hidden"></i>
+                  <i :class="!passwordVisible ?'flaticon-hidden':'flaticon-visibility'"
+                     @click="passwordVisible = !passwordVisible"></i>
                 </div>
-                <input v-model="form.password" type="password" id="password-field" class="form-control"
+                <input v-model="form.password"
+                       :type="passwordVisible ?'text':'password'"
+                       :class="errors.password ? 'error-input' :''"
+                       @input="errors.password = null"
+                       id="password-field" class="form-control"
                        placeholder="Пароль">
-                <div class="icon icon-2 "><i class="flaticon-visibility"></i></div>
+                <span class="error" v-for="(error, index) in errors.password" :key="index">{{ error }}&ensp;</span>
               </div>
               <div class="checkk ">
                 <div class="form-check p-0 m-0">
-                  <input v-model="form.remember" type="checkbox" id="remember">
-                  <label class="p-0" for="remember"> Запомнить меня</label></div>
-                <a href="#0"
+                </div>
+                <a href="#"
                    class="forgot"> Забыли пароль?</a>
               </div>
-              <button @click.prevent="sendForm" type="submit" class="btn--primary style2">Войти</button>
+              <button @click.prevent="sendForm" type="submit" class="style2">Войти</button>
             </form>
           </div>
         </div>
@@ -49,7 +57,11 @@ export default {
       form: {
         email: null,
         password: null,
-        remember: false
+      },
+      passwordVisible: false,
+      errors: {
+        email: null,
+        password: null
       }
     }
   },
@@ -57,20 +69,21 @@ export default {
     sendForm() {
       this.axios.post('/api/auth/login', JSON.stringify(this.form))
           .then(response => {
-            if (response.status === 200 && response.data.success) {
-              document.cookie = "accessToken=" + response.data.data.accessToken + "; max-age=900; path=/"
+            const result = response?.data
+            if (result?.success) {
+              document.cookie = "accessToken=" + result.data.accessToken + "; max-age=900; path=/"
+              window.localStorage.setItem('refreshToken', result.data.accessToken)
               router.replace('/personal')
+            } else {
+              this.errors.email = result.errors.email
+              this.errors.password = result.errors.password
             }
           })
+          .catch((error) => {
+            this.errors.email = error.response.data.errors.email
+            this.errors.password = error.response.data.errors.password
+          })
     }
-  },
-  beforeMount() {
-    this.axios.post('/api/auth/authorise', JSON.stringify(this.form))
-        .then(response => {
-          if (response.status === 200 && response.data.success) {
-            router.replace('/personal')
-          }
-        })
   }
 }
 </script>
@@ -78,5 +91,30 @@ export default {
 <style scoped>
 .form-control {
   cursor: text;
+}
+.form-control {
+  height: 50px !important;
+  cursor: text;
+  font-size: 16px !important;
+  background-color: #e5e5e5 !important;
+}
+.style2 {
+  border-radius: 5px;
+  font-size: 16px !important;
+  background-color: #e5e5e5;
+  height: 50px;
+}
+.style2:hover {
+  background-color: #cdcdcd;
+}
+.style2:active {
+  background-color: #a8a8a8;
+}
+.error {
+  color: red;
+  font-size: 13px;
+}
+.error-input {
+  box-shadow: 0 0 5px red;
 }
 </style>

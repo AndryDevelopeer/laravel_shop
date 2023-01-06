@@ -20196,7 +20196,7 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
     path: '/personal',
     name: 'personal',
     component: function component() {
-      return __webpack_require__.e(/*! import() */ "resources_vue_components_auth_Personal_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/auth/Personal */ "./resources/vue/components/auth/Personal.vue"));
+      return __webpack_require__.e(/*! import() */ "resources_vue_components_personal_Personal_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/personal/Personal */ "./resources/vue/components/personal/Personal.vue"));
     }
   }]
 });
@@ -26701,7 +26701,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_vue_components_main_Main_vue":1,"resources_vue_components_auth_Auth_vue":1,"resources_vue_components_auth_Register_vue":1,"resources_vue_components_auth_Personal_vue":1}[chunkId]) return "js/admin-app/" + chunkId + ".js";
+/******/ 			if ({"resources_vue_components_main_Main_vue":1,"resources_vue_components_auth_Auth_vue":1,"resources_vue_components_auth_Register_vue":1,"resources_vue_components_personal_Personal_vue":1}[chunkId]) return "js/admin-app/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};

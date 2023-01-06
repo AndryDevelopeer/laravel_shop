@@ -11,11 +11,11 @@ class APIResponse
     public $errors = [];
 
     /**
-     * @var string $error
+     * @var string|array $error
      */
-    public function addError(string $error): void
+    public function addError($error, $key = null): void
     {
-        $this->errors[] = $error;
+        $key ? $this->errors[$key][] = $error : $this->errors[] = $error;
     }
 
     /**

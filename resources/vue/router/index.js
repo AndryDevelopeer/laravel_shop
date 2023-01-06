@@ -21,7 +21,7 @@ const router = createRouter({
         {
             path: '/personal',
             name: 'personal',
-            component: () => import('../components/auth/Personal')
+            component: () => import('../components/personal/Personal')
         },
     ]
 })

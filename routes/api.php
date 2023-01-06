@@ -16,3 +16,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/register', \App\Http\Controllers\API\Auth\RegisterController::class);
     Route::post('/authorise', \App\Http\Controllers\API\Auth\AuthoriseController::class);
 });
+
+Route::group(['prefix' => 'personal', 'middleware' => 'personal'], function () {
+    Route::get('/', \App\Http\Controllers\API\Personal\IndexController::class);
+});
