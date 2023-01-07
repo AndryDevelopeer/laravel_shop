@@ -9,14 +9,11 @@ use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
-    public function __invoke(Request $request, APIResponse $response, AuthService $auth)
+    public function __invoke(Request $request, APIResponse $response)
     {
-        if ($auth->attempt()) {
-            $response->data = $auth->getUser();
-            $response->success = true;
-        } else {
-            $response->addError('Пользователь не найден');
-        }
+        $response->data = $request->attributes->get('user') ?? null;
+        $response->success = !!$response->data;
+
         return $response->asJson();
     }
 }

@@ -19881,6 +19881,136 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/vue/store/modules/auth/AuthModule.ts":
+/*!********************************************************!*\
+  !*** ./resources/vue/store/modules/auth/AuthModule.ts ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+var router_1 = __webpack_require__(/*! ../../../router */ "./resources/vue/router/index.js");
+var axios_1 = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var state = {
+  form: {
+    email: null,
+    password: null
+  },
+  passwordVisible: false,
+  errors: {
+    email: null,
+    password: null
+  },
+  client: null,
+  successCheckRefresh: false
+};
+var mutations = {
+  logout: function logout(state) {
+    window.localStorage.removeItem('accessToken');
+    window.localStorage.removeItem('refreshToken');
+    state.client = null;
+    router_1["default"].replace('/');
+  },
+  setTokens: function setTokens(state, data) {
+    window.localStorage.setItem('accessToken', data.accessToken);
+    window.localStorage.setItem('refreshToken', data.refreshToken);
+    state.successCheckRefresh = true;
+    state.form.password = null;
+    state.form.email = null;
+  },
+  setErrors: function setErrors(state, errors) {
+    state.errors.password = errors.password;
+    state.errors.email = errors.email;
+    state.successCheckRefresh = false;
+  }
+};
+var actions = {
+  logout: function logout(_a) {
+    var commit = _a.commit;
+    commit('logout');
+  },
+  login: function login(context) {
+    axios_1["default"].post('/api/auth/login', context.state.form).then(function (response) {
+      var result = response === null || response === void 0 ? void 0 : response.data;
+      (result === null || result === void 0 ? void 0 : result.success) ? context.commit('setTokens', result.data) : context.commit('setErrors', result.errors);
+    }).then(function () {
+      router_1["default"].replace('personal');
+    })["catch"](function (error) {
+      context.commit('setErrors', error.response.data.errors);
+    });
+  },
+  checkRefresh: function checkRefresh(context) {
+    axios_1["default"].post('/api/auth/check-refresh-token', {
+      'refreshToken': window.localStorage.getItem('refreshToken')
+    }).then(function (response) {
+      var result = response.data;
+      result.success ? context.commit('setTokens', result.data) : router_1["default"].replace('auth');
+    }).then(function () {
+      if (!context.state.successCheckRefresh || !window.localStorage.getItem('accessToken')) return;
+      context.dispatch('getUserData');
+    })["catch"](function (error) {
+      console.log('что то пошле не так');
+    });
+  }
+};
+var AuthModule = {
+  state: state,
+  mutations: mutations,
+  actions: actions
+};
+exports["default"] = AuthModule;
+
+/***/ }),
+
+/***/ "./resources/vue/store/modules/personal/PersonalModule.ts":
+/*!****************************************************************!*\
+  !*** ./resources/vue/store/modules/personal/PersonalModule.ts ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+var router_1 = __webpack_require__(/*! ../../../router */ "./resources/vue/router/index.js");
+var axios_1 = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var state = {
+  user: null
+};
+var mutations = {
+  setUser: function setUser(state, user) {
+    state.user = user;
+  }
+};
+var actions = {
+  getUserData: function getUserData(context) {
+    axios_1["default"].get('/api/personal', {
+      headers: {
+        'Access-Token': window.localStorage.getItem('accessToken')
+      }
+    }).then(function (response) {
+      var result = response.data;
+      result.success ? context.commit('setUser', result.data) : context.dispatch('checkRefresh');
+    })["catch"](function () {
+      router_1["default"].replace('auth');
+    });
+  }
+};
+var PersonalModule = {
+  state: state,
+  mutations: mutations,
+  actions: actions
+};
+exports["default"] = PersonalModule;
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[28].use[0]!./resources/vue/components/App.vue?vue&type=script&lang=js":
 /*!********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[1].rules[28].use[0]!./resources/vue/components/App.vue?vue&type=script&lang=js ***!
@@ -20215,94 +20345,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
-/* harmony import */ var _modules_auth_AuthModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/auth/AuthModule */ "./resources/vue/store/modules/auth/AuthModule.js");
+/* harmony import */ var _modules_personal_PersonalModule__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/personal/PersonalModule */ "./resources/vue/store/modules/personal/PersonalModule.ts");
+/* harmony import */ var _modules_auth_AuthModule__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/auth/AuthModule */ "./resources/vue/store/modules/auth/AuthModule.ts");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm-bundler.js");
 
 
-var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
+
+var store = new vuex__WEBPACK_IMPORTED_MODULE_2__["default"].Store({
   state: {},
   mutations: {},
   actions: {},
   modules: {
-    auth: _modules_auth_AuthModule__WEBPACK_IMPORTED_MODULE_0__["default"]
+    auth: _modules_auth_AuthModule__WEBPACK_IMPORTED_MODULE_1__["default"],
+    personal: _modules_personal_PersonalModule__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (store);
-
-/***/ }),
-
-/***/ "./resources/vue/store/modules/auth/AuthModule.js":
-/*!********************************************************!*\
-  !*** ./resources/vue/store/modules/auth/AuthModule.js ***!
-  \********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../router */ "./resources/vue/router/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-
-
-var AuthModule = {
-  state: {
-    form: {
-      email: null,
-      password: null
-    },
-    passwordVisible: false,
-    errors: {
-      email: null,
-      password: null
-    }
-  },
-  mutations: {
-    logout: function logout() {
-      document.cookie = "accessToken=;max-age=0;";
-      window.localStorage.removeItem('refreshToken');
-      _router__WEBPACK_IMPORTED_MODULE_0__["default"].replace('/');
-    },
-    setTokens: function setTokens(state, data) {
-      document.cookie = "accessToken=" + data.accessToken + "; max-age=900; path=/";
-      window.localStorage.setItem('refreshToken', data.accessToken);
-    },
-    setErrors: function setErrors(state, errors) {
-      state.errors.email = errors.email;
-      state.errors.password = errors.password;
-    },
-    clearForm: function clearForm(state) {
-      state.form.email = null;
-      state.form.password = null;
-    }
-  },
-  actions: {
-    logout: function logout(_ref) {
-      var commit = _ref.commit;
-      commit('logout');
-    },
-    login: function login(context) {
-      axios__WEBPACK_IMPORTED_MODULE_1___default().post('/api/auth/login', context.state.form).then(function (response) {
-        var result = response === null || response === void 0 ? void 0 : response.data;
-        if (result !== null && result !== void 0 && result.success) {
-          context.commit('setTokens', result.data);
-          context.commit('clearForm');
-          _router__WEBPACK_IMPORTED_MODULE_0__["default"].replace('/personal');
-        } else {
-          context.commit('setErrors', result.errors);
-        }
-      })["catch"](function (error) {
-        context.commit('setErrors', error.response.data.errors);
-      });
-    },
-    checkRefresh: function checkRefresh(_ref2) {
-      var commit = _ref2.commit;
-    }
-  }
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AuthModule);
 
 /***/ }),
 

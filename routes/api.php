@@ -15,8 +15,9 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', \App\Http\Controllers\API\Auth\LoginController::class);
     Route::post('/register', \App\Http\Controllers\API\Auth\RegisterController::class);
     Route::post('/authorise', \App\Http\Controllers\API\Auth\AuthoriseController::class);
+    Route::post('/check-refresh-token', \App\Http\Controllers\API\Auth\CheckRefreshTokenController::class);
 });
 
-Route::group(['prefix' => 'personal', 'middleware' => 'personal'], function () {
+Route::group(['prefix' => 'personal', 'middleware' => 'auth'], function () {
     Route::get('/', \App\Http\Controllers\API\Personal\IndexController::class);
 });

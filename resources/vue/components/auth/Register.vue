@@ -3,8 +3,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-8 col-md-9 wow fadeInUp animated">
-          <div class="login-register-form"
-               style="background-image: url('../../assets/images/inner-pages/login-bg.png');">
+          <div class="login-register-form">
             <div class="top-title text-center ">
               <h2>Регистрация</h2>
               <p>Уже есть аккаунт?

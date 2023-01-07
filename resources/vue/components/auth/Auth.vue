@@ -3,8 +3,7 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-xl-6 col-lg-8 col-md-9">
-          <div class="login-register-form"
-               style="background-image: url('../../assets/images/inner-pages/login-bg.png');">
+          <div class="login-register-form">
             <div class="top-title text-center ">
               <h2>Войти</h2>
               <p>Нет аккаунта?
@@ -47,7 +46,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import {mapState} from 'vuex';
 
 export default {
@@ -57,7 +56,7 @@ export default {
     return {}
   },
   methods: {
-    sendForm() {
+    sendForm(): void {
       this.$store.dispatch('login')
     }
   }

@@ -9,27 +9,32 @@
                    role="tablist" aria-orientation="vertical">
                 <button class="nav-link selected" id="v-pills-account-tab" data-bs-toggle="pill"
                         data-bs-target="#v-pills-account" type="button" role="tab"
-                        aria-controls="v-pills-account" aria-selected="false"><span> Account Details</span>
+                        aria-controls="v-pills-account" aria-selected="false">
+                  <span> Личные данные</span>
                 </button>
                 <button class="nav-link" id="v-pills-orders-tab"
                         data-bs-toggle="pill" data-bs-target="#v-pills-orders" type="button" role="tab"
-                        aria-controls="v-pills-orders" aria-selected="false"><span> Orders</span></button>
+                        aria-controls="v-pills-orders" aria-selected="false">
+                  <span> История заказов</span></button>
                 <button class="nav-link" id="v-pills-downloads-tab" data-bs-toggle="pill"
                         data-bs-target="#v-pills-downloads" type="button" role="tab"
-                        aria-controls="v-pills-downloads" aria-selected="false"><span> Downloads</span>
+                        aria-controls="v-pills-downloads" aria-selected="false">
+                  <span> Избранное</span>
                 </button>
-                <button @click.prevent="logout" class="nav-link"><span> Logout </span></button>
+                <button @click.prevent="logout" class="nav-link"><span> Выйти </span></button>
               </div>
             </div>
           </div>
           <div class="col-lg-7">
             <div class="tab-content " id="v-pills-tabContent">
 
-              <h4 class="title"><span v-if="user?.role_id === 2">Hello Admin</span></h4>
+              <h4 class="title"><span v-if="personal.user?.role_id === 2">Hello Admin</span></h4>
               <div class="tab-pane fade show active" id="v-pills-account" role="tabpanel"
                    aria-labelledby="v-pills-account-tab">
                 <div class="tabs-content__single">
-                  <div v-for="(field, index) in user" :key="index"><h5><span>{{ index }}: {{ field ?? '-' }}</span></h5></div>
+                  <div v-for="(field, index) in personal.user" :key="index"><h5><span>{{ index }}: {{
+                      field ?? '-'
+                    }}</span></h5></div>
                 </div>
               </div>
 
@@ -60,14 +65,13 @@
 </template>
 
 <script>
-import router from "../../router";
+import {mapState} from "vuex";
 
 export default {
   name: "Personal",
+  computed: mapState(['personal']),
   data() {
-    return {
-      user: null
-    }
+    return {}
   },
   methods: {
     logout() {
@@ -75,17 +79,13 @@ export default {
     }
   },
   beforeCreate() {
-    this.axios.get('/api/personal')
-        .then(response => {
-          const result = response.data
-          !result.success ? router.replace('auth') : this.user = result.data;
-        })
+    this.$store.dispatch('getUserData')
   }
 }
 </script>
 
 <style scoped>
 .title {
-  margin: 20px 0 0 8px;
+  margin: 15px 0 0 8px;
 }
 </style>

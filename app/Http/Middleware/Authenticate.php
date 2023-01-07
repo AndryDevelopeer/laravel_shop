@@ -2,20 +2,35 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Response\APIResponse;
+use Illuminate\Http\Response;
+use App\Services\AuthService;
+use Illuminate\Http\Request;
+use Closure;
 
-class Authenticate extends Middleware
+class Authenticate
 {
+
     /**
-     * Get the path the user should be redirected to when they are not authenticated.
+     * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
+     * @param Request $request
+     * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @return Response|RedirectResponse|null
      */
-    protected function redirectTo($request)
+
+    public function handle(Request $request, Closure $next)
     {
-        if (! $request->expectsJson()) {
-            return route('login');
+        $auth = new AuthService();
+        $response = new APIResponse();
+
+        if ($auth->attempt()) {
+            $request->attributes->set('user', $auth->getUser());
+            return $next($request);
+        } else {
+            $response->addError('Unauthorized');
+            return response($response->asJson());
         }
     }
 }

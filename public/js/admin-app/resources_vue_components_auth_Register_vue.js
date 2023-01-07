@@ -137,10 +137,7 @@ var _hoisted_4 = {
   "class": "col-xl-6 col-lg-8 col-md-9 wow fadeInUp animated"
 };
 var _hoisted_5 = {
-  "class": "login-register-form",
-  style: {
-    "background-image": "url('../../assets/images/inner-pages/login-bg.png')"
-  }
+  "class": "login-register-form"
 };
 var _hoisted_6 = {
   "class": "top-title text-center"

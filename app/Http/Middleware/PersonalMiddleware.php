@@ -22,6 +22,7 @@ class PersonalMiddleware
     {
         $auth = new AuthService();
         $response = new APIResponse();
+
         if ($auth->attempt()) {
             return $next($request);
         } else {

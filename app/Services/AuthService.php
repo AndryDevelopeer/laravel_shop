@@ -16,6 +16,9 @@ class AuthService
 
     private $user = null;
 
+    /**
+     * @throws JsonException
+     */
     public function login(array $data): APIResponse
     {
         $response = new APIResponse();
@@ -43,6 +46,33 @@ class AuthService
     }
 
     /**
+     * метод авторизует клиента по jwt токену
+     */
+
+    public function attempt(): bool
+    {
+        return $this->checkJWT(request()->header('Access-Token') ?? null);
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function checkRefresh($token): APIResponse
+    {
+        $response = new APIResponse();
+        $success = $this->checkJWT($token);
+
+        if ($success) {
+            $response->success = true;
+            $response->data = [
+                'accessToken' => $this->createJWT($this->user, self::LIFE_TIME_ACCESS_TOKEN),
+                'refreshToken' => $this->createJWT($this->user, self::LIFE_TIME_REFRESH_TOKEN),
+            ];
+        }
+        return $response;
+    }
+
+    /**
      * @throws JsonException
      */
     public function createJWT(User $user, $lifeTime): string
@@ -52,43 +82,39 @@ class AuthService
             'typ' => 'JWT',
             'lifeTime' => date('Y-d-m H:i:s', strtotime("+{$lifeTime} minutes")),
         ]));
-
         $payload = base64_encode(Json::encode([
             'id' => $user->id,
             'name' => $user->name,
         ]));
-
         $signature = Hash::make($header . '.' . $payload . '.' . self::SECRET_KEY);
 
         return $header . '.' . $payload . '.' . $signature;
     }
 
-    /**
-     * метод авторизует клиента по jwt токену
-     */
-
-    public function attempt(): bool
+    private function checkJWT($token): bool
     {
-        $token = $_COOKIE['accessToken'] ?? null;
-
         if (!$token) {
             return false;
         }
 
-        $exp = explode('.', $token, 3);
-        $header = Json::decode(base64_decode($exp[0]));
-        $payload = Json::decode(base64_decode($exp[1]));
+        $arrToken = explode('.', $token, 3);
+
+        if (count($arrToken) < 3) {
+            return false;
+        }
+
+        $header = Json::decode(base64_decode($arrToken[0]));
+        $payload = Json::decode(base64_decode($arrToken[1]));
 
         if ($header->lifeTime < date('Y-d-m H:i:s')) {
             return false;
         }
-
-        $tokenSignature = $exp[0] . '.' . $exp[1] . '.' . self::SECRET_KEY;
-        $success = Hash::check($tokenSignature, $exp[2]);
+        $tokenSignature = $arrToken[0] . '.' . $arrToken[1] . '.' . self::SECRET_KEY;
+        $success = Hash::check($tokenSignature, $arrToken[2]);
 
         if ($success) {
             $this->user = User::where(['id' => $payload->id])
-                ->select('name', 'phone', 'gender', 'email', 'age', 'address', 'role_id')
+                ->select('id', 'name', 'phone', 'gender', 'email', 'age', 'address', 'role_id')
                 ->first();
         }
 
