@@ -19906,19 +19906,25 @@ var state = {
     password: null
   },
   client: null,
-  successCheckRefresh: false
+  successCheckRefresh: false,
+  successAccess: false
 };
 var mutations = {
   logout: function logout(state) {
-    window.localStorage.removeItem('accessToken');
+    document.cookie = "accessToken=''; max-age=0; path=/;";
     window.localStorage.removeItem('refreshToken');
     state.client = null;
     router_1["default"].replace('/');
   },
-  setTokens: function setTokens(state, data) {
-    window.localStorage.setItem('accessToken', data.accessToken);
-    window.localStorage.setItem('refreshToken', data.refreshToken);
+  setToken: function setToken(state, token) {
+    document.cookie = "accessToken=" + token + "; max-age=900; path=/;";
     state.successCheckRefresh = true;
+    state.successAccess = true;
+  },
+  setTokens: function setTokens(state, tokens) {
+    document.cookie = "accessToken=" + tokens.accessToken + "; max-age=900; path=/;";
+    window.localStorage.setItem('refreshToken', tokens.refreshToken);
+    state.successAccess = true;
     state.form.password = null;
     state.form.email = null;
   },
@@ -19938,6 +19944,7 @@ var actions = {
       var result = response === null || response === void 0 ? void 0 : response.data;
       (result === null || result === void 0 ? void 0 : result.success) ? context.commit('setTokens', result.data) : context.commit('setErrors', result.errors);
     }).then(function () {
+      if (!context.state.successAccess) return;
       router_1["default"].replace('personal');
     })["catch"](function (error) {
       context.commit('setErrors', error.response.data.errors);
@@ -19948,9 +19955,9 @@ var actions = {
       'refreshToken': window.localStorage.getItem('refreshToken')
     }).then(function (response) {
       var result = response.data;
-      result.success ? context.commit('setTokens', result.data) : router_1["default"].replace('auth');
+      result.success ? context.commit('setToken', result.data.accessToken) : router_1["default"].replace('auth');
     }).then(function () {
-      if (!context.state.successCheckRefresh || !window.localStorage.getItem('accessToken')) return;
+      if (!context.state.successCheckRefresh || !context.state.successAccess) return;
       context.dispatch('getUserData');
     })["catch"](function (error) {
       console.log('что то пошле не так');
@@ -19990,11 +19997,7 @@ var mutations = {
 };
 var actions = {
   getUserData: function getUserData(context) {
-    axios_1["default"].get('/api/personal', {
-      headers: {
-        'Access-Token': window.localStorage.getItem('accessToken')
-      }
-    }).then(function (response) {
+    axios_1["default"].get('/api/personal').then(function (response) {
       var result = response.data;
       result.success ? context.commit('setUser', result.data) : context.dispatch('checkRefresh');
     })["catch"](function () {

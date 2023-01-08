@@ -18,11 +18,10 @@ class AdminPanelMiddleware
     public function handle(Request $request, Closure $next)
     {
         $auth = new AuthService();
-
         if ($auth->attempt() && $auth->isAdmin()) {
             return $next($request);
         } else {
-           return redirect()->route('site.index');
+           return redirect()->route('site.index',['/#/personal']);
         }
     }
 }

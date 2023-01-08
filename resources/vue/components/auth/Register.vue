@@ -53,7 +53,7 @@
               </div>
               <div class="form-group eye">
                 <div class="icon icon-1" ref="password-hidden"
-                     @click="changeVisibility('password')">
+                     @click="passwordVisible = !confirmVisible">
                   <i :class="passwordVisible?'flaticon-visibility':'flaticon-hidden'"></i>
                 </div>
                 <input v-model="form.password"
@@ -63,33 +63,26 @@
                        id="password-field"
                        class="form-control"
                        placeholder="Пароль">
-                <div class="icon icon-2 " ref="password-visible"
-                     @click="changeVisibility('password')">
-                  <i :class="!passwordVisible?'flaticon-visibility':'flaticon-hidden'"></i>
-                </div>
               </div>
 
               <div class="form-group eye">
                 <div class="icon icon-1"
-                     @click="changeVisibility('confirm')">
+                     @click="confirmVisible = !confirmVisible">
                   <i :class="confirmVisible?'flaticon-visibility':'flaticon-hidden'"></i>
                 </div>
-                <input v-model="form.confirm"
-                       :class="errors.confirm?'error':''"
+                <input v-model="form.password_confirmation"
+                       :class="errors.password_confirmation?'error':''"
                        :type="confirmVisible ? 'text' : 'password'"
-                       @input="unsetError('password')"
+                       @input="unsetError('password_confirmation')"
                        id="password-field-confirm"
                        class="form-control"
                        placeholder="Подтверждение пароля">
-                <div class="icon icon-2"
-                     @click="changeVisibility('confirm')">
-                  <i :class="!confirmVisible?'flaticon-visibility':'flaticon-hidden'"></i>
-                </div>
               </div>
 
               <div class="checkk">
                 <div class="form-check p-0 m-0">
-                  <input @change="unsetError('confirmation')" v-model="form.confirmation" type="checkbox" id="confirmation">
+                  <input @change="unsetError('confirmation')" v-model="form.confirmation" type="checkbox"
+                         id="confirmation">
                   <label class="p-0" :class="errors.confirmation?'text-error':''" for="confirmation">
                     Соглашаюсь с политикой безопасности
                   </label>
@@ -112,19 +105,25 @@ export default {
   data() {
     return {
       form: {
-        name: null,
-        email: null,
+        name: '',
+        email: '',
         phone: '',
+        gender: '',
+        age: '',
+        address: '',
         password: '',
-        confirm: '',
+        password_confirmation: '',
         confirmation: false
       },
       errors: {
         name: null,
         email: null,
         phone: null,
+        gender: null,
+        age: null,
+        address: null,
         password: null,
-        confirm: null,
+        password_confirmation: null,
         confirmation: null
       },
       passwordVisible: false,
@@ -137,20 +136,10 @@ export default {
     }
   },
   methods: {
-    changeVisibility(type) {
-      switch (type) {
-        case 'confirm':
-          this.confirmVisible = !this.confirmVisible
-          break
-        case 'password':
-          this.passwordVisible = !this.passwordVisible
-          break
-      }
-    },
     unsetError(field) {
-      if (field === 'password' || field === 'confirm') {
+      if (field === 'password' || field === 'password_confirmation') {
         this.errors['password'] = null
-        this.errors['confirm'] = null
+        this.errors['password_confirmation'] = null
       } else {
         this.errors[field] = null
       }
@@ -174,9 +163,9 @@ export default {
         this.errors.phone = 'Не верный телефон ' + this.form.phone
       }
 
-      if (this.form.password !== this.form.confirm) {
+      if (this.form.password !== this.form.password_confirmation) {
         this.errors.password = 'Пароли не совпадают'
-        this.errors.confirm = 'Пароли не совпадают'
+        this.errors.password_confirmation = 'Пароли не совпадают'
       }
 
       if (this.form.password.length <= 3 || this.form.password.length > 30) {

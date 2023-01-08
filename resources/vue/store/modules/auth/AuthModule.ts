@@ -16,20 +16,26 @@ const state: StateInterface = {
         password: null
     },
     client: null,
-    successCheckRefresh: false
+    successCheckRefresh: false,
+    successAccess: false
 }
 
 const mutations: MutationInterface = {
     logout(state): void {
-        window.localStorage.removeItem('accessToken')
+        document.cookie = "accessToken=''; max-age=0; path=/;"
         window.localStorage.removeItem('refreshToken')
         state.client = null
         router.replace('/')
     },
-    setTokens(state, data): void {
-        window.localStorage.setItem('accessToken', data.accessToken)
-        window.localStorage.setItem('refreshToken', data.refreshToken)
+    setToken(state, token): void {
+        document.cookie = "accessToken=" + token + "; max-age=900; path=/;"
         state.successCheckRefresh = true
+        state.successAccess = true
+    },
+    setTokens(state, tokens): void {
+        document.cookie = "accessToken=" + tokens.accessToken + "; max-age=900; path=/;"
+        window.localStorage.setItem('refreshToken', tokens.refreshToken)
+        state.successAccess = true
         state.form.password = null
         state.form.email = null
     },
@@ -53,6 +59,7 @@ const actions: ActionInterface = {
                     : context.commit('setErrors', result.errors)
             })
             .then(() => {
+                if (!context.state.successAccess) return;
                 router.replace('personal')
             })
             .catch((error) => {
@@ -65,11 +72,11 @@ const actions: ActionInterface = {
             .then(response => {
                 const result = response.data
                 result.success
-                    ? context.commit('setTokens', result.data)
+                    ? context.commit('setToken', result.data.accessToken)
                     : router.replace('auth')
             })
             .then(() => {
-                if (!context.state.successCheckRefresh || !window.localStorage.getItem('accessToken')) return;
+                if (!context.state.successCheckRefresh || !context.state.successAccess) return;
                 context.dispatch('getUserData')
             })
             .catch((error) => {

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use http\Client\Response;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Response\APIResponse;
 use Nette\Utils\JsonException;
@@ -46,12 +47,12 @@ class AuthService
     }
 
     /**
-     * метод авторизует клиента по jwt токену
+     * метод авторизует клиента по jwt токену из $_COOKIE['accessToken']
      */
 
     public function attempt(): bool
     {
-        return $this->checkJWT(request()->header('Access-Token') ?? null);
+        return $this->checkJWT($_COOKIE['accessToken'] ?? null);
     }
 
     /**
@@ -62,13 +63,16 @@ class AuthService
         $response = new APIResponse();
         $success = $this->checkJWT($token);
 
-        if ($success) {
-            $response->success = true;
-            $response->data = [
-                'accessToken' => $this->createJWT($this->user, self::LIFE_TIME_ACCESS_TOKEN),
-                'refreshToken' => $this->createJWT($this->user, self::LIFE_TIME_REFRESH_TOKEN),
-            ];
+        if (!$success) {
+            $response->addError('время жизни рефреш токена истекло');
+            return $response;
         }
+
+        $response->success = true;
+        $response->data = [
+            'accessToken' => $this->createJWT($this->user, self::LIFE_TIME_ACCESS_TOKEN)
+        ];
+
         return $response;
     }
 

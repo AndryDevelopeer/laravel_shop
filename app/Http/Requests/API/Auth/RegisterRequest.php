@@ -25,10 +25,12 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'nullable|string|max:512',
-            'phone' => 'required|string|max:512',
-            'email' => 'nullable|string|max:512',
-            'password' => 'required|string|max:512',
-            'confirm' => 'required|string|max:512',
+            'phone' => 'required|string|max:512|unique:users',
+            'email' => 'nullable|string|max:512|unique:users',
+            'password' => 'required|string|max:512|confirmed',
+            'gender' => 'nullable|string|max:512',
+            'age' => 'nullable|string|max:3',
+            'address' => 'nullable|string|max:1024',
         ];
     }
 }

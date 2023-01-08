@@ -1,7 +1,9 @@
 interface mutations {
     logout(state): void,
 
-    setTokens(state, data): void,
+    setToken(state, token): void,
+
+    setTokens(state, tokens): void,
 
     setErrors(state, errors): void
 }

@@ -18,19 +18,25 @@ exports["default"] = {
   data: function data() {
     return {
       form: {
-        name: null,
-        email: null,
+        name: '',
+        email: '',
         phone: '',
+        gender: '',
+        age: '',
+        address: '',
         password: '',
-        confirm: '',
+        password_confirmation: '',
         confirmation: false
       },
       errors: {
         name: null,
         email: null,
         phone: null,
+        gender: null,
+        age: null,
+        address: null,
         password: null,
-        confirm: null,
+        password_confirmation: null,
         confirmation: null
       },
       passwordVisible: false,
@@ -43,20 +49,10 @@ exports["default"] = {
     }
   },
   methods: {
-    changeVisibility: function changeVisibility(type) {
-      switch (type) {
-        case 'confirm':
-          this.confirmVisible = !this.confirmVisible;
-          break;
-        case 'password':
-          this.passwordVisible = !this.passwordVisible;
-          break;
-      }
-    },
     unsetError: function unsetError(field) {
-      if (field === 'password' || field === 'confirm') {
+      if (field === 'password' || field === 'password_confirmation') {
         this.errors['password'] = null;
-        this.errors['confirm'] = null;
+        this.errors['password_confirmation'] = null;
       } else {
         this.errors[field] = null;
       }
@@ -75,9 +71,9 @@ exports["default"] = {
       if (this.form.phone.length < 18) {
         this.errors.phone = 'Не верный телефон ' + this.form.phone;
       }
-      if (this.form.password !== this.form.confirm) {
+      if (this.form.password !== this.form.password_confirmation) {
         this.errors.password = 'Пароли не совпадают';
-        this.errors.confirm = 'Пароли не совпадают';
+        this.errors.password_confirmation = 'Пароли не совпадают';
       }
       if (this.form.password.length <= 3 || this.form.password.length > 30) {
         this.errors.password = 'Длинна пароля должна быть от 3 до 30 символов';
@@ -255,7 +251,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "icon icon-1",
     ref: "password-hidden",
     onClick: _cache[9] || (_cache[9] = function ($event) {
-      return $options.changeVisibility('password');
+      return $data.passwordVisible = !$data.confirmVisible;
     })
   }, [(0, vue_1.createElementVNode)("i", {
     "class": (0, vue_1.normalizeClass)($data.passwordVisible ? 'flaticon-visibility' : 'flaticon-hidden')
@@ -270,44 +266,29 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     id: "password-field",
     placeholder: "Пароль"
-  }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, _hoisted_19), [[vue_1.vModelDynamic, $data.form.password]]), (0, vue_1.createElementVNode)("div", {
-    "class": "icon icon-2",
-    ref: "password-visible",
-    onClick: _cache[12] || (_cache[12] = function ($event) {
-      return $options.changeVisibility('password');
-    })
-  }, [(0, vue_1.createElementVNode)("i", {
-    "class": (0, vue_1.normalizeClass)(!$data.passwordVisible ? 'flaticon-visibility' : 'flaticon-hidden')
-  }, null, 2 /* CLASS */)], 512 /* NEED_PATCH */)]), (0, vue_1.createElementVNode)("div", _hoisted_20, [(0, vue_1.createElementVNode)("div", {
+  }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, _hoisted_19), [[vue_1.vModelDynamic, $data.form.password]])]), (0, vue_1.createElementVNode)("div", _hoisted_20, [(0, vue_1.createElementVNode)("div", {
     "class": "icon icon-1",
-    onClick: _cache[13] || (_cache[13] = function ($event) {
-      return $options.changeVisibility('confirm');
+    onClick: _cache[12] || (_cache[12] = function ($event) {
+      return $data.confirmVisible = !$data.confirmVisible;
     })
   }, [(0, vue_1.createElementVNode)("i", {
     "class": (0, vue_1.normalizeClass)($data.confirmVisible ? 'flaticon-visibility' : 'flaticon-hidden')
   }, null, 2 /* CLASS */)]), (0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
-    "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
-      return $data.form.confirm = $event;
+    "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
+      return $data.form.password_confirmation = $event;
     }),
-    "class": (0, vue_1.normalizeClass)([$data.errors.confirm ? 'error' : '', "form-control"]),
+    "class": (0, vue_1.normalizeClass)([$data.errors.password_confirmation ? 'error' : '', "form-control"]),
     type: $data.confirmVisible ? 'text' : 'password',
-    onInput: _cache[15] || (_cache[15] = function ($event) {
-      return $options.unsetError('password');
+    onInput: _cache[14] || (_cache[14] = function ($event) {
+      return $options.unsetError('password_confirmation');
     }),
     id: "password-field-confirm",
     placeholder: "Подтверждение пароля"
-  }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, _hoisted_21), [[vue_1.vModelDynamic, $data.form.confirm]]), (0, vue_1.createElementVNode)("div", {
-    "class": "icon icon-2",
-    onClick: _cache[16] || (_cache[16] = function ($event) {
-      return $options.changeVisibility('confirm');
-    })
-  }, [(0, vue_1.createElementVNode)("i", {
-    "class": (0, vue_1.normalizeClass)(!$data.confirmVisible ? 'flaticon-visibility' : 'flaticon-hidden')
-  }, null, 2 /* CLASS */)])]), (0, vue_1.createElementVNode)("div", _hoisted_22, [(0, vue_1.createElementVNode)("div", _hoisted_23, [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
-    onChange: _cache[17] || (_cache[17] = function ($event) {
+  }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, _hoisted_21), [[vue_1.vModelDynamic, $data.form.password_confirmation]])]), (0, vue_1.createElementVNode)("div", _hoisted_22, [(0, vue_1.createElementVNode)("div", _hoisted_23, [(0, vue_1.withDirectives)((0, vue_1.createElementVNode)("input", {
+    onChange: _cache[15] || (_cache[15] = function ($event) {
       return $options.unsetError('confirmation');
     }),
-    "onUpdate:modelValue": _cache[18] || (_cache[18] = function ($event) {
+    "onUpdate:modelValue": _cache[16] || (_cache[16] = function ($event) {
       return $data.form.confirmation = $event;
     }),
     type: "checkbox",
@@ -316,7 +297,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0, vue_1.normalizeClass)(["p-0", $data.errors.confirmation ? 'text-error' : '']),
     "for": "confirmation"
   }, " Соглашаюсь с политикой безопасности ", 2 /* CLASS */)])]), (0, vue_1.createElementVNode)("button", {
-    onClick: _cache[19] || (_cache[19] = (0, vue_1.withModifiers)(
+    onClick: _cache[17] || (_cache[17] = (0, vue_1.withModifiers)(
     //@ts-ignore
     function () {
       var args = [];

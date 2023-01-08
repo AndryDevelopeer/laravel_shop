@@ -17,9 +17,7 @@ const mutations: MutationInterface = {
 
 const actions: ActionInterface = {
     getUserData(context) {
-        axios.get('/api/personal', {
-            headers: {'Access-Token': window.localStorage.getItem('accessToken')}
-        })
+        axios.get('/api/personal')
             .then(response => {
                 const result = response.data
                 result.success

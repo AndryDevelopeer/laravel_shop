@@ -12,7 +12,7 @@ class RegisterController extends Controller
     public function __invoke(RegisterRequest $request)
     {
         $data = $request->validated();
-        unset($data['confirm'], $data['remember']);
+        unset($data['remember']);
 
         $success = User::firstOrCreate($data);
 
