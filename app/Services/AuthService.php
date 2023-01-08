@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use http\Client\Response;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Response\APIResponse;
 use Nette\Utils\JsonException;

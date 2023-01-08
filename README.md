@@ -2,13 +2,17 @@
 
 ## Start
 
-php artisan serve
+docker-compose up -d
 
 php artisan storage:link
 
+php artisan migrate
+
+php artisan migrate --seed
+
 npm run prod
 
-admin panel (http://127.0.0.1:8000/admin/)
+admin panel (http://localhost/admin/)
 
 Thank you for visited my repo.
 
