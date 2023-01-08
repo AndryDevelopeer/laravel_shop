@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         Category::factory(10)->create();
         Color::factory(30)->create();
         Tag::factory(20)->create();
-        Role::factory(2)->create();
+        Role::factory(1)->create();
         User::factory(20)->create();
         Product::factory(20)->create();
         ProductColor::factory(30)->create();

@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
   computed: (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapState)(['personal']),
   data: function data() {
     return {
-      adminRoleId: 2
+      adminRoleId: 1
     };
   },
   methods: {

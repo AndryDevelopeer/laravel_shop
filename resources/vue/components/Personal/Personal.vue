@@ -74,7 +74,7 @@ export default {
   computed: mapState(['personal']),
   data() {
     return {
-      adminRoleId: 2
+      adminRoleId: 1
     }
   },
   methods: {

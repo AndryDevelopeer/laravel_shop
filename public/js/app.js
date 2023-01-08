@@ -27050,7 +27050,7 @@ var app = (0,vue__WEBPACK_IMPORTED_MODULE_4__.createApp)(_components_App_vue__WE
 app.use(_store__WEBPACK_IMPORTED_MODULE_1__["default"]);
 app.use(_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.config.globalProperties.axios = axios__WEBPACK_IMPORTED_MODULE_3___default().create({
-  baseURL: 'http://127.0.0.1:8000',
+  baseURL: 'http://localhost:8080',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'

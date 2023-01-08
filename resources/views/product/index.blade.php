@@ -49,8 +49,7 @@
                                             </div>
                                         </td>
                                         <td>{{$product->category->name}}</td>
-                                        @php(setlocale(LC_MONETARY, 'ru_RU'))
-                                        <td>{{money_format('%i',$product->price)}}</td>
+                                        <td>{{$product->price}}</td>
                                         <td>{{$product->count}}</td>
                                         <td>{{$product->is_active}}</td>
                                         <td>{{$product->is_deleted}}</td>

@@ -66,8 +66,7 @@
                     </tr>
                     <tr>
                         <td>Цена</td>
-                        @php(setlocale(LC_MONETARY, 'ru_RU'))
-                        <td>{{money_format('%i',$product->price)}}</td>
+                        <td>{{'%i',$product->price}}</td>
                     </tr>
                     <tr>
                         <td>Количество</td>

@@ -21,7 +21,7 @@ class UserFactory extends Factory
             'password' => $this->faker->password,
             'gender' => $this->faker->randomElement(['male', 'female']),
             'age' => $this->faker->numberBetween(1, 100),
-            'role_id' => $this->faker->numberBetween(1, 2),
+            'role_id' => 1,
             'address' => $this->faker->text(30),
         ];
     }
