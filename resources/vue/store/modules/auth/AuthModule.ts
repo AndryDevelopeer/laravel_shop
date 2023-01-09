@@ -5,6 +5,8 @@ import ModuleInterface from "../ModuleInterface";
 import router from "../../../router";
 import axios from "axios";
 
+const AUTH_URL = 'http://localhost:4000'
+
 const state: StateInterface = {
     form: {
         email: null,
@@ -17,7 +19,7 @@ const state: StateInterface = {
     },
     client: null,
     successCheckRefresh: false,
-    successAccess: false
+    successAccess: false,
 }
 
 const mutations: MutationInterface = {
@@ -43,12 +45,23 @@ const mutations: MutationInterface = {
         state.errors.password = errors.password
         state.errors.email = errors.email
         state.successCheckRefresh = false
+    },
+    setAuthErrors(state, errors): void {
+        errors.forEach(el => {
+            state.errors[el.param] = el.value;
+        })
     }
 }
 
 const actions: ActionInterface = {
     logout({commit}): void {
         commit('logout')
+    },
+    registration(context) {
+        axios.post(AUTH_URL + '/api/registration', context.state.form)
+            .then(response => {
+                console.log(response);
+            })
     },
     login(context): void {
         axios.post('/api/auth/login', context.state.form)

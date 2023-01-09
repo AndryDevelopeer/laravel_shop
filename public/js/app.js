@@ -19895,6 +19895,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 var router_1 = __webpack_require__(/*! ../../../router */ "./resources/vue/router/index.js");
 var axios_1 = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+var AUTH_URL = 'http://localhost:4000';
 var state = {
   form: {
     email: null,
@@ -19932,12 +19933,22 @@ var mutations = {
     state.errors.password = errors.password;
     state.errors.email = errors.email;
     state.successCheckRefresh = false;
+  },
+  setAuthErrors: function setAuthErrors(state, errors) {
+    errors.forEach(function (el) {
+      state.errors[el.param] = el.value;
+    });
   }
 };
 var actions = {
   logout: function logout(_a) {
     var commit = _a.commit;
     commit('logout');
+  },
+  registration: function registration(context) {
+    axios_1["default"].post(AUTH_URL + '/api/registration', context.state.form).then(function (response) {
+      console.log(response);
+    });
   },
   login: function login(context) {
     axios_1["default"].post('/api/auth/login', context.state.form).then(function (response) {
@@ -20324,6 +20335,12 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_0__.createRouter)({
     name: 'register',
     component: function component() {
       return __webpack_require__.e(/*! import() */ "resources_vue_components_auth_Register_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/auth/Register */ "./resources/vue/components/auth/Register.vue"));
+    }
+  }, {
+    path: '/registration',
+    name: 'registration',
+    component: function component() {
+      return __webpack_require__.e(/*! import() */ "resources_vue_components_auth_Registration_vue").then(__webpack_require__.bind(__webpack_require__, /*! ../components/auth/Registration */ "./resources/vue/components/auth/Registration.vue"));
     }
   }, {
     path: '/personal',
@@ -26830,7 +26847,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_vue_components_main_Main_vue":1,"resources_vue_components_auth_Auth_vue":1,"resources_vue_components_auth_Register_vue":1,"resources_vue_components_personal_Personal_vue":1}[chunkId]) return "js/admin-app/" + chunkId + ".js";
+/******/ 			if ({"resources_vue_components_main_Main_vue":1,"resources_vue_components_auth_Auth_vue":1,"resources_vue_components_auth_Register_vue":1,"resources_vue_components_auth_Registration_vue":1,"resources_vue_components_personal_Personal_vue":1}[chunkId]) return "js/admin-app/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
@@ -27040,6 +27057,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var AUTH_URL = 'http://localhost:4000';
 var vMaskV2 = v_mask__WEBPACK_IMPORTED_MODULE_5__.VueMaskDirective;
 var vMaskV3 = {
   beforeMount: vMaskV2.bind,
@@ -27051,6 +27069,7 @@ app.use(_store__WEBPACK_IMPORTED_MODULE_1__["default"]);
 app.use(_router__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.config.globalProperties.axios = axios__WEBPACK_IMPORTED_MODULE_3___default().create({
   baseURL: 'http://localhost:8080',
+  authURL: 'http://localhost:4000',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'

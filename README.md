@@ -4,6 +4,8 @@
 
 docker-compose up -d
 
+docker exec -it shop_app bash
+
 php artisan storage:link
 
 php artisan migrate

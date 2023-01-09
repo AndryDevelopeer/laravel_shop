@@ -19,12 +19,16 @@ const router = createRouter({
             component: () => import('../components/auth/Register')
         },
         {
+            path: '/registration',
+            name: 'registration',
+            component: () => import('../components/auth/Registration')
+        },
+        {
             path: '/personal',
             name: 'personal',
             component: () => import('../components/personal/Personal')
         },
     ]
 })
-
 
 export default router

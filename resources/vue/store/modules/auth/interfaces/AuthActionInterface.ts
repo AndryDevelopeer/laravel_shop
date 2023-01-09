@@ -1,7 +1,9 @@
 interface actions {
-    logout({commit}): void,
+    logout({commit}): void
 
-    login(context): void,
+    registration(context): void
+
+    login(context): void
 
     checkRefresh(context): void
 }
