@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ProductServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+        App\Providers\ExternalAuthServiceProvider::class,
 
     ],
 

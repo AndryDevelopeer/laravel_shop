@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', \App\Http\Controllers\SiteController::class)->name('site.index');
+
 Route::get('/dev', \App\Http\Controllers\Dev\IndexController::class)->name('dev.index');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {

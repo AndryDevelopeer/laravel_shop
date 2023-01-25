@@ -1,49 +1,42 @@
 <template>
-  <section class="login-page pt-120 pb-120 wow fadeInUp animated">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-xl-6 col-lg-8 col-md-9">
-          <div class="login-register-form">
-            <div class="top-title text-center ">
-              <h2>Войти</h2>
-              <p>Нет аккаунта?
-                <router-link to="/register">Зарегистрироваться</router-link>
-              </p>
-            </div>
-            <form class="common-form">
-              <div class="form-group">
-                <input v-model="auth.form.email" type="text"
-                       :class="auth.errors.email ? 'error-input' :''"
-                       @input="auth.errors.email = null"
-                       class="form-control" placeholder="Ваш емайл">
-                <span class="error" v-for="(error, index) in auth.errors.email" :key="index">{{ error }}&ensp;</span>
-              </div>
-              <div class="form-group eye">
-                <div class="icon icon-1">
-                  <i :class="!auth.passwordVisible ?'flaticon-hidden':'flaticon-visibility'"
-                     @click="auth.passwordVisible = !auth.passwordVisible"></i>
-                </div>
-                <input v-model="auth.form.password"
-                       :type="auth.passwordVisible ?'text':'password'"
-                       :class="auth.errors.password ? 'error-input' :''"
-                       @input="auth.errors.password = null"
-                       id="password-field" class="form-control"
-                       placeholder="Пароль">
-                <span class="error" v-for="(error, index) in auth.errors.password" :key="index">{{ error }}&ensp;</span>
-              </div>
-              <div class="checkk ">
-                <div class="form-check p-0 m-0">
-                </div>
-                <a href="#"
-                   class="forgot"> Забыли пароль?</a>
-              </div>
-              <button @click.prevent="sendForm" type="submit" class="style2">Войти</button>
-            </form>
-          </div>
+  <div class="auth-form container-fluid d-flex justify-content-center align-items-center mb-3">
+    <form>
+      <h1 class="mb-3 text-center">Войти</h1>
+      <div class="text-center mb-2"> У вас нет аккаунта?
+        <router-link to="/register">зарегистрироваться</router-link>
+      </div>
+      <div class="mb-3">
+        <label for="inputEmail1" class="form-label">Емайл</label>
+        <input :class="auth.authentication.errors.login?'is-invalid':''"
+               @input="clearErrors('login')"
+               v-model="auth.authentication.form.login"
+               aria-describedby="emailHelp"
+               class="form-control"
+               id="inputEmail1"
+               type="email">
+        <div v-for="(error, inx) in auth.authentication.errors.login " :key="inx" class="invalid-feedback">
+          {{ error }}
         </div>
       </div>
-    </div>
-  </section>
+      <label for="inputPassword1" class="form-label">Пароль</label>
+      <div class="input-group mb-3">
+        <input :class="auth.authentication.errors.password?'is-invalid':''"
+               :type="passwordHide ? 'password' : 'text'"
+               @input="clearErrors('password')"
+               v-model="auth.authentication.form.password"
+               id="inputPassword1"
+               class="form-control">
+        <button @click.prevent="passwordHide = !passwordHide"
+                class="btn btn-outline-secondary" type="button" id="button-addon2">
+          {{ passwordHide ? 'Показать' : 'Скрыть' }}
+        </button>
+        <div v-for="(error, inx) in auth.authentication.errors.password " :key="inx" class="invalid-feedback">
+          {{ error }}
+        </div>
+      </div>
+      <button @click.prevent="sendForm" type="submit" class="btn btn-primary">Войти</button>
+    </form>
+  </div>
 </template>
 
 <script lang="ts">
@@ -53,43 +46,30 @@ export default {
   name: "Auth",
   computed: mapState(['auth']),
   data() {
-    return {}
+    return {
+      passwordHide: true
+    }
   },
   methods: {
     sendForm(): void {
       this.$store.dispatch('login')
+    },
+    clearErrors(field: string): void {
+      if (this.auth['authentication'].errors[field]) this.$store.dispatch('clearErrors', {
+        form: 'authentication',
+        field: field
+      })
     }
   }
 }
 </script>
 
 <style scoped>
-.form-control {
-  cursor: text;
+.btn-outline-secondary:focus {
+  box-shadow: none;
 }
-.form-control {
-  height: 50px !important;
-  cursor: text;
-  font-size: 16px !important;
-  background-color: #e5e5e5 !important;
-}
-.style2 {
-  border-radius: 5px;
-  font-size: 16px !important;
-  background-color: #e5e5e5;
-  height: 50px;
-}
-.style2:hover {
-  background-color: #cdcdcd;
-}
-.style2:active {
-  background-color: #a8a8a8;
-}
-.error {
-  color: red;
-  font-size: 13px;
-}
-.error-input {
-  box-shadow: 0 0 5px red;
+.auth-form {
+  height: 75vh!important;
+  max-width: 360px;
 }
 </style>

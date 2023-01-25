@@ -17,6 +17,7 @@ class AdminPanelMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+        return $next($request);
         $auth = new AuthService();
         if ($auth->attempt() && $auth->isAdmin()) {
             return $next($request);

@@ -48489,88 +48489,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/vue/assets/css/bootstrap.5.1.1.min.css":
-/*!**********************************************************!*\
-  !*** ./resources/vue/assets/css/bootstrap.5.1.1.min.css ***!
-  \**********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/vue/assets/fonts/flaticon.css":
-/*!*************************************************!*\
-  !*** ./resources/vue/assets/fonts/flaticon.css ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/vue/assets/css/plugin/slick.css":
-/*!***************************************************!*\
-  !*** ./resources/vue/assets/css/plugin/slick.css ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/vue/assets/css/plugin/magnific-popup.css":
-/*!************************************************************!*\
-  !*** ./resources/vue/assets/css/plugin/magnific-popup.css ***!
-  \************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/vue/assets/css/plugin/nice-select.v1.0.css":
-/*!**************************************************************!*\
-  !*** ./resources/vue/assets/css/plugin/nice-select.v1.0.css ***!
-  \**************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/vue/assets/css/plugin/animate.css":
-/*!*****************************************************!*\
-  !*** ./resources/vue/assets/css/plugin/animate.css ***!
-  \*****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
-
-/***/ }),
-
-/***/ "./resources/vue/assets/css/style.css":
-/*!********************************************!*\
-  !*** ./resources/vue/assets/css/style.css ***!
-  \********************************************/
+/***/ "./resources/css/bootstrap.css":
+/*!*************************************!*\
+  !*** ./resources/css/bootstrap.css ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -48977,8 +48899,8 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
 /******/ 			"/js/admin-app": 0,
-/******/ 			"css/main": 0,
-/******/ 			"css/admin-app": 0
+/******/ 			"css/admin-app": 0,
+/******/ 			"css/main": 0
 /******/ 		};
 /******/ 		
 /******/ 		// no chunk on demand loading
@@ -49028,28 +48950,22 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/js/app.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/dist/js/adminlte.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/raphael/raphael.min.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/select2/js/select2.full.min.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/dropzone/dropzone.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.js")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/select2/css/select2.min.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/fontawesome-free/css/all.min.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/plugins/dropzone/min/dropzone.min.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/adminlte/dist/css/adminlte.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/css/app.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/vue/assets/css/bootstrap.5.1.1.min.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/vue/assets/fonts/flaticon.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/vue/assets/css/plugin/slick.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/vue/assets/css/plugin/magnific-popup.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/vue/assets/css/plugin/nice-select.v1.0.css")))
-/******/ 	__webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/vue/assets/css/plugin/animate.css")))
-/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/main","css/admin-app"], () => (__webpack_require__("./resources/vue/assets/css/style.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/js/app.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/dist/js/adminlte.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/raphael/raphael.min.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/select2/js/select2.full.min.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/dropzone/dropzone.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/bs-custom-file-input/bs-custom-file-input.js")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/select2/css/select2.min.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/fontawesome-free/css/all.min.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/plugins/dropzone/min/dropzone.min.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/adminlte/dist/css/adminlte.css")))
+/******/ 	__webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/css/app.css")))
+/******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/admin-app","css/main"], () => (__webpack_require__("./resources/css/bootstrap.css")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
 /******/ 	
 /******/ })()

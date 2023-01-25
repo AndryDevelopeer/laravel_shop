@@ -13,7 +13,8 @@ const vMaskV3 = {
     unmounted: vMaskV2.unbind
 };
 
-const app = createApp(App)
+const app = createApp({})
+    .component('app', App)
     .directive('mask', vMaskV3);
 
 app.use(store)

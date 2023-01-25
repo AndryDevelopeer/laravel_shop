@@ -9,6 +9,8 @@ class IndexController extends Controller
 {
     public function __invoke()
     {
+        dd(request()->cookie());
+
         return view('dev.index');
     }
 }
